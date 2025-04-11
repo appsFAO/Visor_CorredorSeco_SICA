@@ -1,11 +1,10 @@
+// Crear el mapa con fondo satelital
 var map = L.map('map').setView([13.5, -85], 6);
-
-// Fondo satelital ESRI
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
   attribution: '&copy; Esri, Maxar, Earthstar Geographics'
 }).addTo(map);
 
-// Función para mostrar información de los features
+// Función genérica para popup con propiedades
 function popupGenerico(feature, layer) {
   let props = feature.properties;
   let contenido = '';
@@ -15,7 +14,7 @@ function popupGenerico(feature, layer) {
   layer.bindPopup(contenido);
 }
 
-// Capas GeoJSON vacías
+// Capas definidas
 var centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
@@ -35,20 +34,28 @@ fetch('datos/Países_piloto.geojson')
   .then(res => res.json())
   .then(data => paisesPiloto.addData(data));
 
-// Mostrar inicialmente
+// Agregar capas al mapa
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
 
-// Control de visibilidad con checkboxes
-document.getElementById('centroamerica').addEventListener('change', function () {
-  this.checked ? centroamerica.addTo(map) : map.removeLayer(centroamerica);
+// Mostrar/ocultar capas con checkboxes
+document.getElementById('Centroamérica').addEventListener('change', function () {
+  if (this.checked) {
+    centroamerica.addTo(map);
+  } else {
+    map.removeLayer(centroamerica);
+  }
 });
 
-document.getElementById('paises_piloto').addEventListener('change', function () {
-  this.checked ? paisesPiloto.addTo(map) : map.removeLayer(paisesPiloto);
+document.getElementById('Países_piloto').addEventListener('change', function () {
+  if (this.checked) {
+    paisesPiloto.addTo(map);
+  } else {
+    map.removeLayer(paisesPiloto);
+  }
 });
 
-// Función para centrar por país
+// Centrado por país
 function centrarEnPais(pais) {
   const coords = {
     honduras: [15.2, -86.4],
@@ -65,7 +72,7 @@ function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// Mostrar/ocultar panel lateral
+// Mostrar/ocultar panel
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
