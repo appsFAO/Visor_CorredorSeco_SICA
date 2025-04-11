@@ -8,7 +8,7 @@ html, body {
 #map {
   position: absolute;
   top: 60px;
-  bottom: 30px;
+  bottom: 40px; /* espacio para el footer */
   left: 0;
   right: 0;
   z-index: 1;
@@ -20,16 +20,16 @@ header {
   width: 100%;
   background-color: #2c3e50;
   color: white;
-  padding: 8px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 8px 20px;
   z-index: 1000;
 }
 
 header h1 {
-  font-size: 18px;
   margin: 0;
+  font-size: 18px;
 }
 
 nav button {
@@ -81,16 +81,20 @@ footer {
   width: 100%;
   background-color: #2c3e50;
   color: white;
-  text-align: center;
-  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
   font-size: 12px;
   z-index: 1000;
 }
-#logo-fao {
-  position: fixed;
-  bottom: 40px;  /* un poco arriba del footer */
-  left: 20px;
-  height: 40px;
-  z-index: 999;
-  opacity: 0.9;
+
+footer img {
+  height: 30px;
+  opacity: 0.95;
+}
+
+.footer-text {
+  flex-grow: 1;
+  text-align: center;
 }
