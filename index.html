@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
-  <img id="logo-fao" src="img/logo_fao.png" alt="FAO">
 <body>
 
   <header>
@@ -29,11 +28,15 @@
   </aside>
 
   <main id="map"></main>
-
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
   <footer>
-    © 2025 Proyecto Corredor Seco | FAO - SICA
+    <div class="footer-left">
+      <img src="img/logo_fao.png" alt="FAO">
+    </div>
+    <div class="footer-text">
+      © 2025 Proyecto Corredor Seco | FAO - SICA
+    </div>
   </footer>
 
   <script src="js/script.js"></script>
