@@ -10,24 +10,22 @@
 </head>
 <body>
 
-  <!-- Encabezado -->
   <header>
-    <h1>🌎 Visor Corredor Seco - Países Piloto</h1>
+    <h1>🌎 Visor Corredor Seco y Zonas Áridas</h1>
     <nav>
-      <button onclick="centrarEnPais('honduras')">
+      <button onclick="centrarEnPais('honduras')" title="Honduras">
         <img src="img/bandera_honduras.png" alt="HN" />
       </button>
-      <button onclick="centrarEnPais('guatemala')">
+      <button onclick="centrarEnPais('guatemala')" title="Guatemala">
         <img src="img/bandera_guatemala.png" alt="GT" />
       </button>
-      <button onclick="centrarEnPais('elsalvador')">
+      <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
         <img src="img/bandera_elsalvador.png" alt="SV" />
       </button>
-      <button onclick="vistaGeneral()">🌍 Vista</button>
+      <button onclick="vistaGeneral()" title="Vista General">🌍</button>
     </nav>
   </header>
 
-  <!-- Panel de capas -->
   <aside id="panel">
     <h2>🗂 Capas</h2>
     <label><input type="checkbox" id="Centroamérica" checked> Centroamérica</label><br>
@@ -35,13 +33,11 @@
     <button onclick="togglePanel()">✖</button>
   </aside>
 
-  <!-- Mapa -->
   <div id="map"></div>
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
-  <!-- Footer con logo FAO -->
   <footer>
-    <img src="img/logo_fao.png" alt="FAO">
+    <img src="img/logo_fao.png" alt="FAO" />
     <span>© 2025 Proyecto Corredor Seco | FAO - SICA</span>
   </footer>
 
