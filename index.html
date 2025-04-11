@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Visor Leaflet - Países Piloto</title>
+  <title>Visor Corredor Seco - Países Piloto</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
@@ -15,7 +15,6 @@
 
     #map {
       height: 100vh;
-      z-index: 1;
     }
 
     .navbar {
@@ -121,7 +120,6 @@
     layer.bindPopup(contenido);
   }
 
-  // Capas
   var centroamerica = L.geoJSON(null, {
     style: { color: 'blue', weight: 2 },
     onEachFeature: popupGenerico
@@ -132,12 +130,13 @@
     onEachFeature: popupGenerico
   });
 
-  fetch('datos/Centroamerica.geojson')
+  // Rutas actualizadas (¡con tildes!)
+  fetch('datos/Centroamérica.geojson')
     .then(res => res.json())
     .then(data => centroamerica.addData(data))
     .catch(err => console.error('Error cargando Centroamérica:', err));
 
-  fetch('datos/Paises_piloto.geojson')
+  fetch('datos/Países_piloto.geojson')
     .then(res => res.json())
     .then(data => paisesPiloto.addData(data))
     .catch(err => console.error('Error cargando Países piloto:', err));
@@ -150,7 +149,6 @@
     "Países Piloto": paisesPiloto
   }).addTo(map);
 
-  // Coordenadas por país
   function centrarEnPais(pais) {
     const coordenadas = {
       honduras: [15.2, -86.4],
