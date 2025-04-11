@@ -7,23 +7,102 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <style>
-    #map { height: 100vh; }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    #map {
+      height: 100vh;
+      z-index: 1;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #2c3e50;
+      color: white;
+      padding: 10px 20px;
+      font-family: sans-serif;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar h1 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .navbar select {
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: none;
+    }
+
+    .leyenda {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: sans-serif;
+      z-index: 999;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
+    .leyenda div {
+      margin-bottom: 6px;
+    }
+
+    .leyenda span {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      vertical-align: middle;
+      border: 1px solid #aaa;
+    }
+
+    .leyenda .azul { background: blue; }
+    .leyenda .naranja { background: orange; }
+    .leyenda .verde { background: green; }
   </style>
 </head>
 <body>
+
+<div class="navbar">
+  <h1>🌎 Visor Corredor Seco</h1>
+  <select id="paisSelector" onchange="centrarEnPais()">
+    <option value="">Seleccionar país</option>
+    <option value="honduras">Honduras</option>
+    <option value="guatemala">Guatemala</option>
+    <option value="elsalvador">El Salvador</option>
+  </select>
+</div>
+
 <div id="map"></div>
 
+<div class="leyenda">
+  <div><span class="azul"></span>Centroamérica</div>
+  <div><span class="naranja"></span>Países Piloto</div>
+  <div><span class="verde"></span>Áreas Protegidas ICF</div>
+</div>
+
 <script>
-  // Inicializar el mapa centrado en Centroamérica
   var map = L.map('map').setView([13.5, -85], 6);
 
-  // Capa base OSM
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
 
-  // Función para mostrar popups con las propiedades
   function popupGenerico(feature, layer) {
     let props = feature.properties;
     let contenido = '';
@@ -33,14 +112,13 @@
     layer.bindPopup(contenido);
   }
 
-  // Crear capas vacías
   var centroamerica = L.geoJSON(null, {
     style: { color: 'blue', weight: 2 },
     onEachFeature: popupGenerico
   });
 
-  var munis = L.geoJSON(null, {
-    style: { color: 'purple', weight: 2 },
+  var paisesPiloto = L.geoJSON(null, {
+    style: { color: 'orange', weight: 2, dashArray: '4' },
     onEachFeature: popupGenerico
   });
 
@@ -49,46 +127,54 @@
     onEachFeature: popupGenerico
   });
 
-  // Cargar y mostrar la capa de Centroamérica
   fetch('datos/Centroamerica.geojson')
     .then(res => res.json())
     .then(data => centroamerica.addData(data))
     .catch(err => console.error('Error cargando Centroamérica:', err));
 
-  // Cargar y mostrar la capa de Municipalidades
-  fetch('datos/Munis.geojson')
+  fetch('datos/Paises_piloto.geojson')
     .then(res => res.json())
-    .then(data => munis.addData(data))
-    .catch(err => console.error('Error cargando Municipalidades:', err));
+    .then(data => paisesPiloto.addData(data))
+    .catch(err => console.error('Error cargando Países piloto:', err));
 
-  // Cargar y mostrar la capa de Áreas Protegidas ICF
   fetch('datos/HN/Areas_Protegidas_ICF.geojson')
     .then(res => res.json())
     .then(data => {
       areasICF.addData(data);
-
-      // Verificar que haya geometría antes de hacer fitBounds
       if (areasICF.getLayers().length > 0) {
         map.fitBounds(areasICF.getBounds());
-      } else {
-        console.warn('La capa de Áreas Protegidas ICF está vacía');
       }
     })
     .catch(err => console.error('Error cargando Áreas Protegidas ICF:', err));
 
-  // Agregar capas al mapa
   centroamerica.addTo(map);
-  munis.addTo(map);
+  paisesPiloto.addTo(map);
   areasICF.addTo(map);
 
-  // Control de capas (selector)
   var overlays = {
     "Centroamérica": centroamerica,
-    "Municipalidades": munis,
+    "Países Piloto": paisesPiloto,
     "Áreas Protegidas ICF - HN": areasICF
   };
 
   L.control.layers(null, overlays).addTo(map);
+
+  // Función para centrar según país seleccionado
+  function centrarEnPais() {
+    var selector = document.getElementById("paisSelector");
+    var pais = selector.value;
+
+    const coordenadas = {
+      honduras: [15.2, -86.4],
+      guatemala: [15.5, -90.3],
+      elsalvador: [13.8, -88.9]
+    };
+
+    if (coordenadas[pais]) {
+      map.setView(coordenadas[pais], 8);
+    }
+  }
 </script>
+
 </body>
 </html>
