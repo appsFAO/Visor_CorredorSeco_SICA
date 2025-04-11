@@ -120,6 +120,7 @@
     layer.bindPopup(contenido);
   }
 
+  // Capas
   var centroamerica = L.geoJSON(null, {
     style: { color: 'blue', weight: 2 },
     onEachFeature: popupGenerico
@@ -130,7 +131,6 @@
     onEachFeature: popupGenerico
   });
 
-  // Rutas actualizadas (¡con tildes!)
   fetch('datos/Centroamérica.geojson')
     .then(res => res.json())
     .then(data => centroamerica.addData(data))
@@ -147,6 +147,8 @@
   L.control.layers(null, {
     "Centroamérica": centroamerica,
     "Países Piloto": paisesPiloto
+  }, {
+    position: 'bottomright' // 👈 aquí bajamos el selector de capas
   }).addTo(map);
 
   function centrarEnPais(pais) {
