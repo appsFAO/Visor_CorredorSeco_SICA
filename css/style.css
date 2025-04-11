@@ -86,3 +86,11 @@ footer {
   font-size: 12px;
   z-index: 1000;
 }
+#logo-fao {
+  position: fixed;
+  bottom: 40px;  /* un poco arriba del footer */
+  left: 20px;
+  height: 40px;
+  z-index: 999;
+  opacity: 0.9;
+}
