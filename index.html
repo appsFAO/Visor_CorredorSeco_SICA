@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Visor Corredor Seco - Países Piloto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visor Corredor Seco - SICA</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="css/style.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -11,28 +11,25 @@
 <body>
 
   <header>
-    <h1>Visor Corredor Seco - Países Piloto</h1>
+    <h1>🌎 Visor Corredor Seco - Países Piloto</h1>
     <nav>
-      <button onclick="centrarEnPais('honduras')">
-        <img src="img/bandera_honduras.png" alt="Honduras" />
-      </button>
-      <button onclick="centrarEnPais('guatemala')">
-        <img src="img/bandera_guatemala.png" alt="Guatemala" />
-      </button>
-      <button onclick="centrarEnPais('elsalvador')">
-        <img src="img/bandera_elsalvador.png" alt="El Salvador" />
-      </button>
+      <button onclick="centrarEnPais('honduras')"><img src="img/bandera_honduras.png" alt="HN"></button>
+      <button onclick="centrarEnPais('guatemala')"><img src="img/bandera_guatemala.png" alt="GT"></button>
+      <button onclick="centrarEnPais('elsalvador')"><img src="img/bandera_elsalvador.png" alt="SV"></button>
       <button onclick="vistaGeneral()">🌍 Vista General</button>
     </nav>
   </header>
 
   <aside id="panel">
-    <h2>Capas</h2>
-    <label><input type="checkbox" id="centroamerica" checked> Centroamérica</label>
+    <h2>🗂 Capas</h2>
+    <label><input type="checkbox" id="centroamerica" checked> Centroamérica</label><br>
     <label><input type="checkbox" id="paises_piloto" checked> Países Piloto</label>
+    <button onclick="togglePanel()">✖</button>
   </aside>
 
   <main id="map"></main>
+
+  <button id="menu-btn" onclick="togglePanel()">☰</button>
 
   <footer>
     © 2025 Proyecto Corredor Seco | FAO - SICA
