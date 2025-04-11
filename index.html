@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Visor Leaflet - Centroamérica Completo</title>
+  <title>Visor Leaflet - Países Piloto</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -37,11 +37,23 @@
       margin: 0;
     }
 
-    .navbar select {
-      padding: 6px 10px;
-      font-size: 14px;
-      border-radius: 4px;
+    .botones-paises {
+      display: flex;
+      gap: 10px;
+    }
+
+    .botones-paises button {
+      padding: 6px 12px;
       border: none;
+      border-radius: 4px;
+      background-color: #3498db;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .botones-paises button:hover {
+      background-color: #2980b9;
     }
 
     .leyenda {
@@ -72,19 +84,17 @@
 
     .leyenda .azul { background: blue; }
     .leyenda .naranja { background: orange; }
-    .leyenda .verde { background: green; }
   </style>
 </head>
 <body>
 
 <div class="navbar">
-  <h1>🌎 Visor Corredor Seco</h1>
-  <select id="paisSelector" onchange="centrarEnPais()">
-    <option value="">Seleccionar país</option>
-    <option value="honduras">Honduras</option>
-    <option value="guatemala">Guatemala</option>
-    <option value="elsalvador">El Salvador</option>
-  </select>
+  <h1>🌎 Visor Corredor Seco - Países Piloto</h1>
+  <div class="botones-paises">
+    <button onclick="centrarEnPais('honduras')">Honduras</button>
+    <button onclick="centrarEnPais('guatemala')">Guatemala</button>
+    <button onclick="centrarEnPais('elsalvador')">El Salvador</button>
+  </div>
 </div>
 
 <div id="map"></div>
@@ -92,7 +102,6 @@
 <div class="leyenda">
   <div><span class="azul"></span>Centroamérica</div>
   <div><span class="naranja"></span>Países Piloto</div>
-  <div><span class="verde"></span>Áreas Protegidas ICF</div>
 </div>
 
 <script>
@@ -112,6 +121,7 @@
     layer.bindPopup(contenido);
   }
 
+  // Capas
   var centroamerica = L.geoJSON(null, {
     style: { color: 'blue', weight: 2 },
     onEachFeature: popupGenerico
@@ -119,11 +129,6 @@
 
   var paisesPiloto = L.geoJSON(null, {
     style: { color: 'orange', weight: 2, dashArray: '4' },
-    onEachFeature: popupGenerico
-  });
-
-  var areasICF = L.geoJSON(null, {
-    style: { color: 'green', weight: 2, fillOpacity: 0.4 },
     onEachFeature: popupGenerico
   });
 
@@ -137,39 +142,21 @@
     .then(data => paisesPiloto.addData(data))
     .catch(err => console.error('Error cargando Países piloto:', err));
 
-  fetch('datos/HN/Areas_Protegidas_ICF.geojson')
-    .then(res => res.json())
-    .then(data => {
-      areasICF.addData(data);
-      if (areasICF.getLayers().length > 0) {
-        map.fitBounds(areasICF.getBounds());
-      }
-    })
-    .catch(err => console.error('Error cargando Áreas Protegidas ICF:', err));
-
   centroamerica.addTo(map);
   paisesPiloto.addTo(map);
-  areasICF.addTo(map);
 
-  var overlays = {
+  L.control.layers(null, {
     "Centroamérica": centroamerica,
-    "Países Piloto": paisesPiloto,
-    "Áreas Protegidas ICF - HN": areasICF
-  };
+    "Países Piloto": paisesPiloto
+  }).addTo(map);
 
-  L.control.layers(null, overlays).addTo(map);
-
-  // Función para centrar según país seleccionado
-  function centrarEnPais() {
-    var selector = document.getElementById("paisSelector");
-    var pais = selector.value;
-
+  // Coordenadas por país
+  function centrarEnPais(pais) {
     const coordenadas = {
       honduras: [15.2, -86.4],
       guatemala: [15.5, -90.3],
       elsalvador: [13.8, -88.9]
     };
-
     if (coordenadas[pais]) {
       map.setView(coordenadas[pais], 8);
     }
