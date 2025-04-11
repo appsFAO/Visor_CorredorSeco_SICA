@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Visor Leaflet - Centroamérica Completo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    #map { height: 100vh; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+  // Inicializar el mapa centrado en Centroamérica
+  var map = L.map('map').setView([13.5, -85], 6);
+
+  // Capa base OSM
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Función para mostrar popups con las propiedades
+  function popupGenerico(feature, layer) {
+    let props = feature.properties;
+    let contenido = '';
+    for (let key in props) {
+      contenido += `<strong>${key}:</strong> ${props[key]}<br>`;
+    }
+    layer.bindPopup(contenido);
+  }
+
+  // Crear capas vacías
+  var centroamerica = L.geoJSON(null, {
+    style: { color: 'blue', weight: 2 },
+    onEachFeature: popupGenerico
+  });
+
+  var munis = L.geoJSON(null, {
+    style: { color: 'purple', weight: 2 },
+    onEachFeature: popupGenerico
+  });
+
+  var areasICF = L.geoJSON(null, {
+    style: { color: 'green', weight: 2, fillOpacity: 0.4 },
+    onEachFeature: popupGenerico
+  });
+
+  // Cargar y mostrar la capa de Centroamérica
+  fetch('datos/Centroamerica.geojson')
+    .then(res => res.json())
+    .then(data => centroamerica.addData(data))
+    .catch(err => console.error('Error cargando Centroamérica:', err));
+
+  // Cargar y mostrar la capa de Municipalidades
+  fetch('datos/Munis.geojson')
+    .then(res => res.json())
+    .then(data => munis.addData(data))
+    .catch(err => console.error('Error cargando Municipalidades:', err));
+
+  // Cargar y mostrar la capa de Áreas Protegidas ICF
+  fetch('datos/HN/Areas_Protegidas_ICF.geojson')
+    .then(res => res.json())
+    .then(data => {
+      areasICF.addData(data);
+
+      // Verificar que haya geometría antes de hacer fitBounds
+      if (areasICF.getLayers().length > 0) {
+        map.fitBounds(areasICF.getBounds());
+      } else {
+        console.warn('La capa de Áreas Protegidas ICF está vacía');
+      }
+    })
+    .catch(err => console.error('Error cargando Áreas Protegidas ICF:', err));
+
+  // Agregar capas al mapa
+  centroamerica.addTo(map);
+  munis.addTo(map);
+  areasICF.addTo(map);
+
+  // Control de capas (selector)
+  var overlays = {
+    "Centroamérica": centroamerica,
+    "Municipalidades": munis,
+    "Áreas Protegidas ICF - HN": areasICF
+  };
+
+  L.control.layers(null, overlays).addTo(map);
+</script>
+</body>
+</html>
