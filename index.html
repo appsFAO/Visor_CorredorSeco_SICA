@@ -1,195 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Visor Corredor Seco - Países Piloto</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    #map {
-      height: 100vh;
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: #2c3e50;
-      color: white;
-      padding: 10px 20px;
-      font-family: sans-serif;
-      z-index: 999;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .navbar h1 {
-      font-size: 18px;
-      margin: 5px 0;
-    }
-
-    .botones-paises {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .botones-paises button {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      background-color: #3498db;
-      color: white;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .botones-paises button:hover {
-      background-color: #2980b9;
-    }
-
-    .leyenda {
-      position: fixed;
-      bottom: 50px;
-      left: 20px;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-family: sans-serif;
-      z-index: 999;
-      box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    }
-
-    .leyenda div {
-      margin-bottom: 6px;
-    }
-
-    .leyenda span {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      margin-right: 8px;
-      vertical-align: middle;
-      border: 1px solid #aaa;
-    }
-
-    .leyenda .azul { background: #0033cc; }
-    .leyenda .naranja { background: #ffa500; }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 6px;
-      font-size: 12px;
-      font-family: sans-serif;
-      z-index: 998;
-    }
-  </style>
 </head>
 <body>
 
-<div class="navbar">
-  <h1>🌎 Visor Corredor Seco - Países Piloto</h1>
-  <div class="botones-paises">
-    <button onclick="centrarEnPais('honduras')">🇭🇳 Honduras</button>
-    <button onclick="centrarEnPais('guatemala')">🇬🇹 Guatemala</button>
-    <button onclick="centrarEnPais('elsalvador')">🇸🇻 El Salvador</button>
-    <button onclick="map.setView([13.5, -85], 6)">🌍 Vista General</button>
-  </div>
-</div>
+  <header>
+    <h1>Visor Corredor Seco - Países Piloto</h1>
+    <nav>
+      <button onclick="centrarEnPais('honduras')">
+        <img src="img/bandera_honduras.png" alt="Honduras" />
+      </button>
+      <button onclick="centrarEnPais('guatemala')">
+        <img src="img/bandera_guatemala.png" alt="Guatemala" />
+      </button>
+      <button onclick="centrarEnPais('elsalvador')">
+        <img src="img/bandera_elsalvador.png" alt="El Salvador" />
+      </button>
+      <button onclick="vistaGeneral()">🌍 Vista General</button>
+    </nav>
+  </header>
 
-<div id="map"></div>
+  <aside id="panel">
+    <h2>Capas</h2>
+    <label><input type="checkbox" id="centroamerica" checked> Centroamérica</label>
+    <label><input type="checkbox" id="paises_piloto" checked> Países Piloto</label>
+  </aside>
 
-<div class="leyenda">
-  <div><span class="azul"></span>Centroamérica</div>
-  <div><span class="naranja"></span>Países Piloto</div>
-</div>
+  <main id="map"></main>
 
-<footer>
-  © 2025 Proyecto Corredor Seco | FAO - SICA
-</footer>
+  <footer>
+    © 2025 Proyecto Corredor Seco | FAO - SICA
+  </footer>
 
-<script>
-  var map = L.map('map').setView([13.5, -85], 6);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-
-  function popupGenerico(feature, layer) {
-    let props = feature.properties;
-    let contenido = '';
-    for (let key in props) {
-      contenido += `<strong>${key}:</strong> ${props[key]}<br>`;
-    }
-    layer.bindPopup(contenido);
-
-    // Mostrar tooltip con nombre
-    if (props.nombre || props.Name || props.NAME_0) {
-      const etiqueta = props.nombre || props.Name || props.NAME_0;
-      layer.bindTooltip(etiqueta, {
-        direction: 'center',
-        sticky: true
-      });
-    }
-  }
-
-  var centroamerica = L.geoJSON(null, {
-    style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
-    onEachFeature: popupGenerico
-  });
-
-  var paisesPiloto = L.geoJSON(null, {
-    style: { color: '#ffa500', weight: 2, dashArray: '4', fillOpacity: 0.2 },
-    onEachFeature: popupGenerico
-  });
-
-  fetch('datos/Centroamérica.geojson')
-    .then(res => res.json())
-    .then(data => centroamerica.addData(data))
-    .catch(err => console.error('Error cargando Centroamérica:', err));
-
-  fetch('datos/Países_piloto.geojson')
-    .then(res => res.json())
-    .then(data => paisesPiloto.addData(data))
-    .catch(err => console.error('Error cargando Países piloto:', err));
-
-  centroamerica.addTo(map);
-  paisesPiloto.addTo(map);
-
-  L.control.layers(null, {
-    "Centroamérica": centroamerica,
-    "Países Piloto": paisesPiloto
-  }, {
-    position: 'bottomright'
-  }).addTo(map);
-
-  function centrarEnPais(pais) {
-    const coordenadas = {
-      honduras: [15.2, -86.4],
-      guatemala: [15.5, -90.3],
-      elsalvador: [13.8, -88.9]
-    };
-    if (coordenadas[pais]) {
-      map.setView(coordenadas[pais], 8);
-    }
-  }
-</script>
-
+  <script src="js/script.js"></script>
 </body>
 </html>
