@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Visor Corredor Seco - SICA</title>
+  <title>Visor Corredor Seco - Países Piloto</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -10,16 +10,18 @@
 </head>
 <body>
 
+  <!-- Encabezado con botones de país -->
   <header>
     <h1>🌎 Visor Corredor Seco - Países Piloto</h1>
     <nav>
-      <button onclick="centrarEnPais('honduras')"><img src="img/bandera_honduras.png" alt="HN" /></button>
-      <button onclick="centrarEnPais('guatemala')"><img src="img/bandera_guatemala.png" alt="GT" /></button>
-      <button onclick="centrarEnPais('elsalvador')"><img src="img/bandera_elsalvador.png" alt="SV" /></button>
+      <button onclick="centrarEnPais('honduras')">🇭🇳</button>
+      <button onclick="centrarEnPais('guatemala')">🇬🇹</button>
+      <button onclick="centrarEnPais('elsalvador')">🇸🇻</button>
       <button onclick="vistaGeneral()">🌍 Vista General</button>
     </nav>
   </header>
 
+  <!-- Panel lateral de capas -->
   <aside id="panel">
     <h2>🗂 Capas</h2>
     <label><input type="checkbox" id="Centroamérica" checked> Centroamérica</label><br>
@@ -27,18 +29,17 @@
     <button onclick="togglePanel()">✖</button>
   </aside>
 
-  <main id="map"></main>
+  <!-- Mapa principal -->
+  <div id="map"></div>
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
+  <!-- Footer con logo FAO -->
   <footer>
-    <div class="footer-left">
-      <img src="img/logo_fao.png" alt="FAO">
-    </div>
-    <div class="footer-text">
-      © 2025 Proyecto Corredor Seco | FAO - SICA
-    </div>
+    <img src="img/logo_fao.png" alt="FAO">
+    <span>© 2025 Proyecto Corredor Seco | FAO - SICA</span>
   </footer>
 
+  <!-- Script principal -->
   <script src="js/script.js"></script>
 </body>
 </html>
