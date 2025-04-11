@@ -1,3 +1,4 @@
+/* Reset básico */
 html, body {
   margin: 0;
   padding: 0;
@@ -5,61 +6,53 @@ html, body {
   font-family: sans-serif;
 }
 
+/* Mapa ocupa toda la pantalla */
 #map {
-  position: absolute;
-  top: 60px;
-  bottom: 40px; /* espacio para el footer */
-  left: 0;
-  right: 0;
-  z-index: 1;
+  height: 100vh;
+  z-index: 0;
 }
 
+/* Encabezado */
 header {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #2c3e50;
+  background: #2c3e50;
   color: white;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 20px;
   z-index: 1000;
 }
 
 header h1 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 nav button {
-  background: none;
-  border: none;
-  margin-left: 10px;
+  margin-left: 5px;
+  font-size: 16px;
   cursor: pointer;
+  border: none;
+  background: none;
 }
 
-nav img {
-  width: 22px;
-  height: 22px;
-  border: 1px solid white;
-  border-radius: 3px;
-}
-
+/* Panel lateral */
 #panel {
   position: fixed;
   top: 60px;
-  left: 0;
+  left: 10px;
   background: white;
   padding: 10px;
-  z-index: 1000;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-  width: 200px;
-  transition: transform 0.3s ease;
+  border-radius: 4px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  z-index: 1001;
 }
 
 #panel.hidden {
-  transform: translateX(-220px);
+  display: none;
 }
 
 #menu-btn {
@@ -75,26 +68,23 @@ nav img {
   border-radius: 4px;
 }
 
+/* Footer con logo FAO */
 footer {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  background-color: #2c3e50;
+  background: #2c3e50;
   color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 15px;
   font-size: 12px;
-  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 15px;
+  z-index: 1001;
 }
 
 footer img {
   height: 30px;
   opacity: 0.95;
-}
-
-.footer-text {
-  flex-grow: 1;
-  text-align: center;
 }
