@@ -1,10 +1,12 @@
-// Crear el mapa con fondo satelital
+// Crear mapa base
 var map = L.map('map').setView([13.5, -85], 6);
+
+// Fondo satelital
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
   attribution: '&copy; Esri, Maxar, Earthstar Geographics'
 }).addTo(map);
 
-// Función genérica para popup con propiedades
+// Función para mostrar propiedades en popups
 function popupGenerico(feature, layer) {
   let props = feature.properties;
   let contenido = '';
@@ -14,7 +16,7 @@ function popupGenerico(feature, layer) {
   layer.bindPopup(contenido);
 }
 
-// Capas definidas
+// Definir capas vacías
 var centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
@@ -25,7 +27,7 @@ var paisesPiloto = L.geoJSON(null, {
   onEachFeature: popupGenerico
 });
 
-// Cargar GeoJSON
+// Cargar datos
 fetch('datos/Centroamérica.geojson')
   .then(res => res.json())
   .then(data => centroamerica.addData(data));
@@ -34,25 +36,17 @@ fetch('datos/Países_piloto.geojson')
   .then(res => res.json())
   .then(data => paisesPiloto.addData(data));
 
-// Agregar capas al mapa
+// Agregar inicialmente al mapa
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
 
-// Mostrar/ocultar capas con checkboxes
-document.getElementById('Centroamérica').addEventListener('change', function () {
-  if (this.checked) {
-    centroamerica.addTo(map);
-  } else {
-    map.removeLayer(centroamerica);
-  }
+// Control de visibilidad
+document.getElementById('centroamerica').addEventListener('change', function () {
+  this.checked ? centroamerica.addTo(map) : map.removeLayer(centroamerica);
 });
 
-document.getElementById('Países_piloto').addEventListener('change', function () {
-  if (this.checked) {
-    paisesPiloto.addTo(map);
-  } else {
-    map.removeLayer(paisesPiloto);
-  }
+document.getElementById('paises_piloto').addEventListener('change', function () {
+  this.checked ? paisesPiloto.addTo(map) : map.removeLayer(paisesPiloto);
 });
 
 // Centrado por país
