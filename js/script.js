@@ -89,9 +89,9 @@ function centrarEnPais(pais) {
     elsalvador: [13.8, -88.9]
   };
   const nombres = {
-    honduras: "Honduras 🇭🇳",
-    guatemala: "Guatemala 🇬🇹",
-    elsalvador: "El Salvador 🇸🇻"
+    honduras: "Honduras",
+    guatemala: "Guatemala",
+    elsalvador: "El Salvador"
   };
   if (coords[pais]) {
     map.setView(coords[pais], 8);
