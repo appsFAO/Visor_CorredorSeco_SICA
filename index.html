@@ -10,47 +10,50 @@
 </head>
 <body>
 
+  <!-- ✅ ENCABEZADO SUPERIOR -->
   <header>
-    <header>
-  <div class="titulo-contenedor">
-    <h1>🌎 Visor Corredor Seco y Zonas Áridas</h1>
-  </div>
-  <div class="banderas">
-    <button onclick="centrarEnPais('honduras')" title="Honduras">
-      <img src="img/bandera_honduras.png" alt="HN" />
-    </button>
-    <button onclick="centrarEnPais('guatemala')" title="Guatemala">
-      <img src="img/bandera_guatemala.png" alt="GT" />
-    </button>
-    <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
-      <img src="img/bandera_elsalvador.png" alt="SV" />
-    </button>
-    <button onclick="vistaGeneral()" title="Vista General">🌍</button>
-  </div>
-</header>
+    <div class="titulo-contenedor">
+      <h1> Visor Corredor Seco y Zonas Áridas</h1>
+    </div>
+    <div class="banderas">
+      <button onclick="centrarEnPais('honduras')" title="Honduras">
+        <img src="img/bandera_honduras.png" alt="HN" />
+      </button>
+      <button onclick="centrarEnPais('guatemala')" title="Guatemala">
+        <img src="img/bandera_guatemala.png" alt="GT" />
+      </button>
+      <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
+        <img src="img/bandera_elsalvador.png" alt="SV" />
+      </button>
+      <button onclick="vistaGeneral()" title="Vista General">🌍</button>
+    </div>
+  </header>
 
-  <!-- Botón flotante para abrir/cerrar el panel -->
+  <!-- ✅ BOTÓN PARA MOSTRAR PANEL DE CAPAS -->
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
-  <!-- Panel de capas -->
+  <!-- ✅ PANEL DE CAPAS -->
   <aside id="panel" class="hidden">
     <h2><span class="emoji">🗺️</span> <strong>Capas disponibles</strong></h2>
     <ul>
       <li>
-        <label><input type="checkbox" id="paises_piloto" checked> Países Piloto</label>
+        <label><input type="checkbox" id="centroamérica" checked> Centroamérica</label>
       </li>
       <li>
-        <label><input type="checkbox" id="centroamerica" checked> Centroamérica</label>
+        <label><input type="checkbox" id="países_piloto" checked> Países Piloto</label>
       </li>
     </ul>
   </aside>
 
+  <!-- ✅ MAPA -->
   <div id="map"></div>
 
+  <!-- ✅ PIE DE PÁGINA -->
   <footer>
     <span>© 2025 Proyecto Flagship de Restauración | FAO | Creado por: Grettel Vargas </span>
   </footer>
 
+  <!-- ✅ SCRIPT JS -->
   <script src="js/script.js"></script>
 </body>
 </html>
