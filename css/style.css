@@ -1,4 +1,4 @@
-/* Layout general */
+/* Estructura base */
 html, body {
   margin: 0;
   padding: 0;
@@ -11,52 +11,66 @@ html, body {
   z-index: 0;
 }
 
-/* Header */
+/* =========================
+   🧭 HEADER Y BANDERAS
+   ========================= */
 header {
   position: fixed;
   top: 0;
   width: 100%;
   background: #2c3e50;
   color: white;
-  padding: 10px 15px;
+  padding: 12px 15px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   z-index: 1000;
 }
 
+.titulo-contenedor {
+  text-align: center;
+  width: 100%;
+}
+
 header h1 {
   margin: 0;
-  font-size: 16px;
+  font-size: 22px;
+  font-weight: bold;
 }
 
-/* Banderas y nav */
-nav {
+.banderas {
+  margin-top: 8px;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-nav button {
+.banderas button {
   border: none;
   background: none;
   cursor: pointer;
-  padding: 2px;
+  padding: 0;
 }
 
-nav img {
-  width: 26px;
-  height: 18px;
+.banderas img {
+  width: 42px;
+  height: 28px;
   object-fit: cover;
-  border: 1px solid white;
-  border-radius: 3px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  border: 2px solid white;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
 }
 
-/* Botón flotante */
+.banderas img:hover {
+  transform: scale(1.1);
+}
+
+/* =========================
+   📦 PANEL LATERAL DE CAPAS
+   ========================= */
 #menu-btn {
   position: fixed;
-  top: 70px;
+  top: 115px;
   left: 10px;
   z-index: 1100;
   background: #3498db;
@@ -69,10 +83,9 @@ nav img {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* Panel lateral */
 #panel {
   position: fixed;
-  top: 120px;
+  top: 160px;
   left: 10px;
   background: white;
   padding: 12px 16px;
@@ -107,7 +120,9 @@ nav img {
   margin: 6px 0;
 }
 
-/* Footer */
+/* =========================
+   🧾 FOOTER
+   ========================= */
 footer {
   position: fixed;
   bottom: 0;
