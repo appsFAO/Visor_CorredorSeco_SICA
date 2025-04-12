@@ -9,74 +9,76 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
-  <!-- ✅ SIDEBAR IZQUIERDA -->
-<aside class="sidebar">
-  <h2>📂 Menú</h2>
-  <ul>
-    <li><a href="#">Inicio</a></li>
-    <li><a href="#">Capas</a></li>
-    <li><a href="#">Indicadores</a></li>
-    <li><a href="#">Documentos</a></li>
-    <li><a href="#">Acerca de</a></li>
-  </ul>
-</aside>
 
-  <!-- ✅ ENCABEZADO SUPERIOR -->
+  <!-- ✅ SIDEBAR IZQUIERDA -->
+  <aside class="sidebar">
+    <h2>📂 Menú</h2>
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Capas</a></li>
+      <li><a href="#">Indicadores</a></li>
+      <li><a href="#">Documentos</a></li>
+      <li><a href="#">Acerca de</a></li>
+    </ul>
+  </aside>
+
+  <!-- ✅ NAVBAR SUPERIOR -->
   <header>
     <div class="titulo-contenedor">
-      <h1> Visor Corredor Seco y Zonas Áridas 🌱</h1>
+      <h1>Visor Corredor Seco y Zonas Áridas 🌱</h1>
     </div>
     <div class="banderas">
-      <button onclick="centrarEnPais('honduras')" title="Honduras">
+      <button onclick="centrarEnPais('honduras')" title="🇭🇳 Honduras">
         <img src="img/bandera_honduras.png" alt="HN" />
       </button>
-      <button onclick="centrarEnPais('guatemala')" title="Guatemala">
+      <button onclick="centrarEnPais('guatemala')" title="🇬🇹 Guatemala">
         <img src="img/bandera_guatemala.png" alt="GT" />
       </button>
-      <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
+      <button onclick="centrarEnPais('elsalvador')" title="🇸🇻 El Salvador">
         <img src="img/bandera_elsalvador.png" alt="SV" />
       </button>
-      <button onclick="vistaGeneral()" title="Vista General">🌍</button>
+      <button onclick="vistaGeneral()" title="🌍 Vista General">🌍</button>
     </div>
   </header>
 
-  <!-- ✅ BOTÓN PARA MOSTRAR PANEL DE CAPAS -->
+  <!-- ✅ BOTÓN DE CAPAS -->
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
   <!-- ✅ PANEL DE CAPAS -->
   <aside id="panel" class="hidden">
-  <h2><span class="emoji">🗺️</span> <strong>Capas</strong></h2>
-  <ul>
-    <li>
-      <label><input type="checkbox" id="corredor_seco_fao" checked> Corredor Seco FAO (WMS)</label>
-    </li>
-    <li>
-      <label><input type="checkbox" id="paises_piloto" checked> Países Piloto</label>
-    </li>
-    <li>
-      <label><input type="checkbox" id="centroamerica" checked> Centroamérica</label>
-    </li>
-  </ul>
-</aside>
-<!-- ✅ LEYENDA DE CAPAS -->
-<div id="leyenda">
-  <h3>🗂️ Leyenda</h3>
-  <ul>
-    <li><span class="leyenda-color" style="background:#0033cc"></span> Centroamérica</li>
-    <li><span class="leyenda-color" style="background:#ffa500"></span> Países Piloto</li>
-    <li><img src="img/icono_wms.png" alt="WMS" class="icono-wms"> Corredor Seco FAO (WMS)</li>
-  </ul>
-</div>
-  
+    <h2><span class="emoji">🗺️</span> <strong>Capas</strong></h2>
+    <ul>
+      <li>
+        <label><input type="checkbox" id="corredor_seco_fao" checked> Corredor Seco FAO (WMS)</label>
+      </li>
+      <li>
+        <label><input type="checkbox" id="paises_piloto" checked> Países Piloto</label>
+      </li>
+      <li>
+        <label><input type="checkbox" id="centroamerica" checked> Centroamérica</label>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ✅ LEYENDA -->
+  <div id="leyenda">
+    <h3>🗂️ Leyenda</h3>
+    <ul>
+      <li><span class="leyenda-color" style="background:#0033cc"></span> Centroamérica</li>
+      <li><span class="leyenda-color" style="background:#ffa500"></span> Países Piloto</li>
+      <li><img src="img/icono_wms.png" alt="WMS" class="icono-wms"> Corredor Seco FAO (WMS)</li>
+    </ul>
+  </div>
+
   <!-- ✅ MAPA -->
   <div id="map"></div>
 
-  <!-- ✅ PIE DE PÁGINA -->
+  <!-- ✅ FOOTER -->
   <footer>
-    <span>© 2025 Proyecto Flagship de Restauración | FAO | Creado por: Grettel Vargas </span>
+    <span>© 2025 Proyecto Flagship de Restauración | FAO | Creado por: Grettel Vargas</span>
   </footer>
 
-  <!-- ✅ SCRIPT JS -->
+  <!-- ✅ SCRIPTS -->
   <script src="js/script.js"></script>
 </body>
 </html>
