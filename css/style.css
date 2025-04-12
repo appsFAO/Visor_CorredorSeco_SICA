@@ -1,162 +1,24 @@
-/* ================
-   ESTRUCTURA BASE
-   ================ */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 #map {
-  height: calc(100vh - 70px); /* Ajuste para el header */
-  margin-top: 70px;
+  position: absolute;
+  top: 70px;
+  left: 180px;
+  right: 0;
+  bottom: 0;
   z-index: 0;
 }
 
-/* =======================
-   🧭 ENCABEZADO (HEADER)
-   ======================= */
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 70px;
-  background: #2c3e50;
-  color: white;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.titulo-contenedor {
-  display: flex;
-  align-items: center;
-}
-
-.banderas {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.banderas button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-.banderas img {
-  width: 32px;
-  height: 22px;
-  object-fit: cover;
-  border: 1px solid white;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease;
-}
-
-.banderas img:hover {
-  transform: scale(1.1);
-}
-
-/* =======================
-   ☰ BOTÓN PANEL DE CAPAS
-   ======================= */
-#menu-btn {
-  position: fixed;
-  top: 85px;
-  right: 10px; /* 🔄 cambiado de left a right */
-  z-index: 1100;
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  font-size: 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-}
-
-/* =====================
-   🗺️ PANEL DE CAPAS
-   ===================== */
-#panel {
-  position: fixed;
-  top: 130px;
-  right: 10px; /* 🔄 cambiado de left a right */
-  background: white;
-  padding: 12px 16px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
-  z-index: 1001;
-  min-width: 180px;
-}
-
-#panel.hidden {
-  display: none;
-}
-
-#panel h2 {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-}
-
-#panel .emoji {
-  margin-right: 6px;
-}
-
-#panel ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#panel li {
-  margin: 6px 0;
-}
-
-/* =====================
-   🧾 FOOTER
-   ===================== */
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #2c3e50;
-  color: white;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 5px 15px;
-  z-index: 1001;
-}
-
-footer img {
-  height: 30px;
-  opacity: 0.95;
-}
-/* =====================
-   NAVBAR SUPERIOR
-   ===================== */
+/* Navbar */
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 180px;
   right: 0;
   height: 70px;
   background: #2c3e50;
@@ -164,13 +26,13 @@ footer img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 25px;
   z-index: 1000;
 }
 
-.titulo-navbar h1 {
-  font-size: 18px;
+.navbar h1 {
   margin: 0;
+  font-size: 18px;
 }
 
 .banderas-navbar button {
@@ -181,29 +43,26 @@ footer img {
 }
 
 .banderas-navbar img {
-  width: 30px;
+  width: 32px;
   height: 22px;
   border: 1px solid white;
   border-radius: 3px;
 }
 
-/* =====================
-   SIDEBAR IZQUIERDA
-   ===================== */
+/* Sidebar */
 .sidebar {
   position: fixed;
-  top: 70px;
+  top: 0;
   left: 0;
   width: 180px;
-  height: calc(100vh - 70px);
-  background-color: #ecf0f1;
-  padding: 20px 15px;
-  z-index: 999;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  height: 100%;
+  background: #ecf0f1;
+  padding: 20px;
+  z-index: 1001;
 }
 
 .sidebar h2 {
-  margin-top: 0;
+  margin-top: 10px;
   font-size: 16px;
 }
 
@@ -212,28 +71,61 @@ footer img {
   padding-left: 0;
 }
 
-.sidebar li {
-  margin-bottom: 10px;
-}
-
 .sidebar a {
   text-decoration: none;
   color: #2c3e50;
-  font-weight: bold;
+  display: block;
+  padding: 6px 0;
+  font-weight: 500;
 }
 
-.sidebar a:hover {
-  color: #2980b9;
+/* Botón de capas */
+#menu-btn {
+  position: fixed;
+  top: 85px;
+  right: 10px;
+  z-index: 1100;
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-/* =====================
-   AJUSTES DEL MAPA
-   ===================== */
-#map {
-  position: absolute;
-  top: 70px;
-  left: 180px; /* ancho de la sidebar */
-  right: 0;
+/* Panel de capas */
+#panel {
+  position: fixed;
+  top: 130px;
+  right: 10px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+  z-index: 1001;
+  min-width: 200px;
+}
+
+#panel.hidden {
+  display: none;
+}
+
+#panel h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+  position: fixed;
   bottom: 0;
-  z-index: 0;
+  left: 0;
+  width: 100%;
+  background: #2c3e50;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  padding: 6px;
+  z-index: 1000;
 }
