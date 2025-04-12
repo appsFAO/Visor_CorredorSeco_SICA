@@ -2,52 +2,55 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Visor Corredor Seco y Zonas Áridas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visor Corredor Seco y Zonas Áridas</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 </head>
 <body>
+  <!-- Encabezado -->
   <header>
-    <div class="titulo-contenedor">
-      <h1 id="main-title">Visor Corredor Seco y Zonas Áridas 🌱</h1>
-    </div>
+    <h1>Visor Corredor Seco y Zonas Áridas <span class="icon">🌱</span></h1>
     <div class="banderas">
-      <button onclick="centrarEnPais('honduras')" title="Honduras">
-        <img src="img/bandera_honduras.png" alt="HN" />
-      </button>
-      <button onclick="centrarEnPais('guatemala')" title="Guatemala">
-        <img src="img/bandera_guatemala.png" alt="GT" />
-      </button>
-      <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
-        <img src="img/bandera_elsalvador.png" alt="SV" />
-      </button>
-      <button onclick="vistaGeneral()" title="Vista General">🌍</button>
-      <button id="lang-switch">English</button>
+      <button title="Honduras" onclick="centrarEnPais('honduras')"><img src="img/bandera_honduras.png" alt="HN"></button>
+      <button title="Guatemala" onclick="centrarEnPais('guatemala')"><img src="img/bandera_guatemala.png" alt="GT"></button>
+      <button title="El Salvador" onclick="centrarEnPais('elsalvador')"><img src="img/bandera_elsalvador.png" alt="SV"></button>
+      <button title="Vista general" onclick="vistaGeneral()">🌍</button>
+      <button id="language-toggle">English</button>
     </div>
   </header>
 
+  <!-- Botón panel -->
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
+  <!-- Panel de capas -->
   <aside id="panel" class="hidden">
-    <h2><span class="emoji">🌍</span> <strong id="panel-title">Capas</strong></h2>
-    <ul>
-      <li><label><input type="checkbox" id="corredor_seco_fao" checked> <span class="cap-layer">Corredor Seco FAO (WMS)</span></label></li>
-      <li><label><input type="checkbox" id="paises_piloto" checked> <span class="cap-layer">Países Piloto</span></label></li>
-      <li><label><input type="checkbox" id="centroamerica" checked> <span class="cap-layer">Centroamérica</span></label></li>
-    </ul>
+    <h2>🗺️ Capas</h2>
+    <label><input type="checkbox" id="corredor_seco_fao" checked> Corredor Seco FAO (WMS)</label>
+    <label><input type="checkbox" id="paises_piloto" checked> Países Piloto</label>
+    <label><input type="checkbox" id="centroamerica" checked> Centroamérica</label>
   </aside>
 
-  <div id="leyenda-dinamica"><h3>🗂️ Leyenda</h3><ul id="leyenda-list"></ul></div>
+  <!-- Mapa -->
   <div id="map"></div>
 
+  <!-- Leyenda -->
+  <div id="leyenda">
+    <h3>🗂️ Leyenda</h3>
+    <ul>
+      <li><span class="cuadro color-azul"></span> Centroamérica</li>
+      <li><span class="cuadro color-naranja"></span> Países Piloto</li>
+      <li><span class="cuadro color-verde"></span> Corredor Seco FAO</li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
   <footer>
-    <span>&copy; 2025 Proyecto Flagship de Restauración | FAO | Creado por: Grettel Vargas </span>
+    © 2025 Proyecto Flagship de Restauración | FAO | Creado por: Grettel Vargas
   </footer>
 
-  <script src="js/script.js"></script>
+  <!-- Script -->
+  <script src="script.js"></script>
 </body>
 </html>
