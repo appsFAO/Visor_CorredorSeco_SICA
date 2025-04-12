@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Visor Corredor Seco y Zonas Áridas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visor Corredor Seco y Zonas Áridas</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -11,9 +11,9 @@
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 </head>
 <body>
-  <header>
+  <header class="navbar">
     <div class="titulo-contenedor">
-      <h1 id="main-title">Visor Corredor Seco y Zonas Áridas 🌱</h1>
+      <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
     </div>
     <div class="banderas">
       <button onclick="centrarEnPais('honduras')" title="Honduras">
@@ -33,7 +33,7 @@
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
   <aside id="panel" class="hidden">
-    <h2><span class="emoji">🗙️</span> <strong id="panel-title">Capas</strong></h2>
+    <h2><span class="emoji">🗺️</span> <strong id="panel-title">Capas</strong></h2>
     <ul>
       <li><label><input type="checkbox" id="corredor_seco_fao" checked> <span class="cap-layer">Corredor Seco FAO (WMS)</span></label></li>
       <li><label><input type="checkbox" id="paises_piloto" checked> <span class="cap-layer">Países Piloto</span></label></li>
@@ -41,11 +41,15 @@
     </ul>
   </aside>
 
-  <div id="leyenda-dinamica"><h3>🗂️ Leyenda</h3><ul id="leyenda-list"></ul></div>
+  <div id="leyenda-dinamica">
+    <h3>🗂️ Leyenda</h3>
+    <ul id="leyenda-list"></ul>
+  </div>
+
   <div id="map"></div>
 
   <footer>
-    <span>&copy; 2025 Proyecto Flagship de Restauración | FAO | Creado por: Grettel Vargas </span>
+    <span>&copy; 2025 Proyecto Flagship de Restauración | FAO | Creado por: Grettel Vargas</span>
   </footer>
 
   <script src="js/script.js"></script>
