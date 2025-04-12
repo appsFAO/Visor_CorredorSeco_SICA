@@ -27,12 +27,12 @@ var paisesPiloto = L.geoJSON(null, {
   onEachFeature: popupGenerico
 });
 
-// Cargar datos
-fetch('datos/Centroamérica.geojson')
+// Cargar datos (usar nombres SIN tildes)
+fetch('datos/centroamerica.geojson')
   .then(res => res.json())
   .then(data => centroamerica.addData(data));
 
-fetch('datos/Países_piloto.geojson')
+fetch('datos/paises_piloto.geojson')
   .then(res => res.json())
   .then(data => paisesPiloto.addData(data));
 
@@ -40,7 +40,7 @@ fetch('datos/Países_piloto.geojson')
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
 
-// Control de visibilidad
+// Control de visibilidad (coinciden con IDs en HTML)
 document.getElementById('centroamerica').addEventListener('change', function () {
   this.checked ? centroamerica.addTo(map) : map.removeLayer(centroamerica);
 });
