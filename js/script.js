@@ -6,7 +6,7 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
   attribution: '&copy; Esri, Maxar, Earthstar Geographics'
 }).addTo(map);
 
-// Función para mostrar propiedades en popups
+// Función para mostrar popups
 function popupGenerico(feature, layer) {
   let props = feature.properties;
   let contenido = '';
@@ -16,7 +16,7 @@ function popupGenerico(feature, layer) {
   layer.bindPopup(contenido);
 }
 
-// Definir capas vacías
+// Capas vacías
 var centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
@@ -27,7 +27,7 @@ var paisesPiloto = L.geoJSON(null, {
   onEachFeature: popupGenerico
 });
 
-// Cargar datos (usar nombres SIN tildes)
+// Cargar datos (nombres sin tildes y minúscula)
 fetch('datos/centroamerica.geojson')
   .then(res => res.json())
   .then(data => centroamerica.addData(data));
@@ -36,7 +36,7 @@ fetch('datos/paises_piloto.geojson')
   .then(res => res.json())
   .then(data => paisesPiloto.addData(data));
 
-// Agregar inicialmente al mapa
+// Agregar al mapa por defecto
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
 
@@ -49,7 +49,7 @@ document.getElementById('paises_piloto').addEventListener('change', function () 
   this.checked ? paisesPiloto.addTo(map) : map.removeLayer(paisesPiloto);
 });
 
-// Centrado por país
+// Centrar por país
 function centrarEnPais(pais) {
   const coords = {
     honduras: [15.2, -86.4],
@@ -66,7 +66,7 @@ function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// Mostrar/ocultar panel
+// Panel lateral
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
