@@ -26,12 +26,21 @@
     </nav>
   </header>
 
-  <aside id="panel">
-    <h2>🗂 Capas</h2>
-    <label><input type="checkbox" id="Centroamérica" checked> Centroamérica</label><br>
-    <label><input type="checkbox" id="Países_piloto" checked> Países Piloto</label>
-    <button onclick="togglePanel()">✖</button>
-  </aside>
+  <!-- Botón flotante para abrir/cerrar el panel -->
+<button id="menu-btn" onclick="togglePanel()">🗺️ Capas</button>
+
+<!-- Panel de capas -->
+<aside id="panel" class="hidden">
+  <h2><span class="emoji">🗺️</span> Capas disponibles</h2>
+  <ul>
+    <li>
+      <label><input type="checkbox" id="Centroamérica" checked> Centroamérica</label>
+    </li>
+    <li>
+      <label><input type="checkbox" id="Países_piloto" checked> Países Piloto</label>
+    </li>
+  </ul>
+</aside>
 
   <div id="map"></div>
   <button id="menu-btn" onclick="togglePanel()">☰</button>
