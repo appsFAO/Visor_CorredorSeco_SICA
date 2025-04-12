@@ -74,7 +74,7 @@ document.getElementById('corredor_seco_fao').addEventListener('change', function
 });
 
 // ============================
-// 🇭🇳 🇬🇹 🇸🇻 Botones de país
+// 🇭🇳 🇬🇹 🇸🇻 Botones de país con popup
 // ============================
 function centrarEnPais(pais) {
   const coords = {
@@ -82,8 +82,26 @@ function centrarEnPais(pais) {
     guatemala: [15.5, -90.3],
     elsalvador: [13.8, -88.9]
   };
+
+  const nombres = {
+    honduras: "Honduras 🇭🇳",
+    guatemala: "Guatemala 🇬🇹",
+    elsalvador: "El Salvador 🇸🇻"
+  };
+
   if (coords[pais]) {
     map.setView(coords[pais], 8);
+
+    // Mostrar popup con el nombre del país
+    const popup = L.popup()
+      .setLatLng(coords[pais])
+      .setContent(`<b>${nombres[pais]}</b>`)
+      .openOn(map);
+
+    // Cerrar el popup automáticamente después de 3 segundos
+    setTimeout(() => {
+      map.closePopup(popup);
+    }, 3000);
   }
 }
 
