@@ -1,12 +1,12 @@
-// 🌍 Inicializar mapa base
+// 🌍 Inicializar el mapa base
 var map = L.map('map').setView([13.5, -85], 6);
 
-// 🛰️ Capa base satelital de Esri
+// 🛰️ Fondo satelital de Esri
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
   attribution: '&copy; Esri, Maxar, Earthstar Geographics'
 }).addTo(map);
 
-// 🔍 Función para mostrar propiedades en popup
+// 🔍 Función para popups genéricos
 function popupGenerico(feature, layer) {
   let props = feature.properties;
   let contenido = '';
@@ -19,7 +19,6 @@ function popupGenerico(feature, layer) {
 // ============================
 // 📁 Capas GeoJSON vacías
 // ============================
-
 const centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
@@ -40,29 +39,28 @@ const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit
 });
 
 // ============================
-// 🔄 Cargar capas GeoJSON
+// 🔄 Cargar GeoJSON desde carpeta /datos
 // ============================
-
 fetch('datos/centroamerica.geojson')
   .then(res => res.json())
-  .then(data => centroamerica.addData(data));
+  .then(data => centroamerica.addData(data))
+  .catch(err => console.error('Error cargando centroamerica.geojson', err));
 
 fetch('datos/paises_piloto.geojson')
   .then(res => res.json())
-  .then(data => paisesPiloto.addData(data));
+  .then(data => paisesPiloto.addData(data))
+  .catch(err => console.error('Error cargando paises_piloto.geojson', err));
 
 // ============================
 // 🗺️ Agregar todas por defecto
 // ============================
-
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
 corredorSecoFAO.addTo(map);
 
 // ============================
-// ✅ Control de visibilidad
+// ✅ Control de visibilidad (panel derecho)
 // ============================
-
 document.getElementById('centroamerica').addEventListener('change', function () {
   this.checked ? centroamerica.addTo(map) : map.removeLayer(centroamerica);
 });
@@ -76,9 +74,8 @@ document.getElementById('corredor_seco_fao').addEventListener('change', function
 });
 
 // ============================
-// 🇭🇳 🇬🇹 🇸🇻 Botones por país
+// 🇭🇳 🇬🇹 🇸🇻 Botones de país
 // ============================
-
 function centrarEnPais(pais) {
   const coords = {
     honduras: [15.2, -86.4],
@@ -90,6 +87,7 @@ function centrarEnPais(pais) {
   }
 }
 
+// Vista general
 function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
@@ -97,7 +95,6 @@ function vistaGeneral() {
 // ============================
 // ☰ Mostrar / Ocultar Panel
 // ============================
-
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
