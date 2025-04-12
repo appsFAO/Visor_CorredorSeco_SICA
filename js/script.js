@@ -1,12 +1,12 @@
-// Crear el mapa base
+// Crear mapa base
 var map = L.map('map').setView([13.5, -85], 6);
 
-// Fondo satelital de Esri
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-  attribution: '&copy; Esri, Maxar, Earthstar Geographics'
+// Fondo base (puede ser OSM o Esri)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Función genérica para popups
+// Popup genérico
 function popupGenerico(feature, layer) {
   let props = feature.properties;
   let contenido = '';
@@ -27,11 +27,12 @@ const paisesPiloto = L.geoJSON(null, {
   onEachFeature: popupGenerico
 });
 
-// Capa WMS desde FAO
+// Capa WMS FAO - Corredor Seco
 const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit/rlc_corredorseco/wms", {
-  layers: 'corredor_seco_region_sica', // ✅ Asegurate que este sea el nombre correcto de la capa
+  layers: 'rlc_corredorseco:corredor_seco_region_sica',
   format: 'image/png',
   transparent: true,
+  version: '1.1.1',
   attribution: '© FAO GeoNetwork'
 });
 
@@ -43,20 +44,18 @@ fetch('datos/centroamerica.geojson')
     if (centroamerica.getLayers().length > 0) {
       map.fitBounds(centroamerica.getBounds());
     }
-  })
-  .catch(err => console.error('Error cargando centroamerica.geojson', err));
+  });
 
 fetch('datos/paises_piloto.geojson')
   .then(res => res.json())
-  .then(data => paisesPiloto.addData(data))
-  .catch(err => console.error('Error cargando paises_piloto.geojson', err));
+  .then(data => paisesPiloto.addData(data));
 
-// Agregar capas iniciales al mapa
+// Mostrar todas las capas al cargar
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
-corredorSecoFAO.addTo(map); // También mostrar WMS por defecto
+corredorSecoFAO.addTo(map);
 
-// Control de visibilidad de capas desde el panel
+// Checkbox de visibilidad
 document.getElementById('centroamerica').addEventListener('change', function () {
   this.checked ? centroamerica.addTo(map) : map.removeLayer(centroamerica);
 });
@@ -69,7 +68,7 @@ document.getElementById('corredor_seco_fao').addEventListener('change', function
   this.checked ? corredorSecoFAO.addTo(map) : map.removeLayer(corredorSecoFAO);
 });
 
-// Centrar el visor en un país por bandera
+// Función para centrar el mapa por país
 function centrarEnPais(pais) {
   const coords = {
     honduras: [15.2, -86.4],
@@ -81,12 +80,12 @@ function centrarEnPais(pais) {
   }
 }
 
-// Vista general para todo Centroamérica
+// Vista general para la región
 function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// Mostrar u ocultar panel lateral
+// Mostrar/ocultar panel lateral
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
