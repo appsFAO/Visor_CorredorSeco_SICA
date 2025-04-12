@@ -17,7 +17,7 @@ function popupGenerico(feature, layer) {
   let props = feature.properties;
   let contenido = '';
   for (let key in props) {
-    contenido += <strong>${key}:</strong> ${props[key]}<br>;
+    contenido += `<strong>${key}:</strong> ${props[key]}<br>`;
   }
   layer.bindPopup(contenido);
 }
@@ -89,13 +89,13 @@ function centrarEnPais(pais) {
     elsalvador: [13.8, -88.9]
   };
   const nombres = {
-    honduras: "Honduras",
-    guatemala: "Guatemala",
-    elsalvador: "El Salvador"
+    honduras: "Honduras 🇭🇳",
+    guatemala: "Guatemala 🇬🇹",
+    elsalvador: "El Salvador 🇸🇻"
   };
   if (coords[pais]) {
     map.setView(coords[pais], 8);
-    const popup = L.popup().setLatLng(coords[pais]).setContent(<b>${nombres[pais]}</b>).openOn(map);
+    const popup = L.popup().setLatLng(coords[pais]).setContent(`<b>${nombres[pais]}</b>`).openOn(map);
     setTimeout(() => map.closePopup(popup), 3000);
   }
 }
