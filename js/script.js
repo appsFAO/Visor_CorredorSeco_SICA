@@ -1,225 +1,126 @@
-/* ============================
-   BASE GENERAL
-============================ */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f6f8;
-}
+// 🌍 Inicializar el mapa base
+const map = L.map('map').setView([13.5, -85], 6);
 
-#map {
-  position: absolute;
-  top: 70px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
+// 🛰️ Fondo satelital
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: '&copy; Esri, Maxar, Earthstar Geographics'
+}).addTo(map);
 
-/* ============================
-   HEADER NAVBAR
-============================ */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: #2c3e50;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 25px;
-  z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
+// 🔍 Geocoder
+L.Control.geocoder({
+  defaultMarkGeocode: true,
+  placeholder: 'Buscar lugar...'
+}).addTo(map);
 
-header h1 {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.banderas button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-left: 10px;
-  padding: 0;
-}
-
-.banderas img {
-  width: 34px;
-  height: 24px;
-  object-fit: cover;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  transition: transform 0.2s ease;
-}
-
-.banderas img:hover {
-  transform: scale(1.05);
-}
-
-/* ============================
-   BOTÓN MENU PANEL CAPAS
-============================ */
-#menu-btn {
-  position: fixed;
-  top: 85px;
-  right: 10px;
-  z-index: 1100;
-  background: #3498db;
-  color: #fff;
-  border: none;
-  padding: 9px 14px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-/* ============================
-   PANEL DE CAPAS
-============================ */
-#panel {
-  position: fixed;
-  top: 130px;
-  right: 10px;
-  background: #fff;
-  padding: 16px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  z-index: 1001;
-  width: 240px;
-  max-width: 90%;
-}
-
-#panel.hidden {
-  display: none;
-}
-
-#panel h2 {
-  margin: 0 0 12px 0;
-  font-size: 16px;
-  color: #2c3e50;
-  display: flex;
-  align-items: center;
-}
-
-#panel ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#panel li {
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.cap-layer {
-  margin-left: 6px;
-}
-
-/* ============================
-   LEYENDA DINÁMICA
-============================ */
-#leyenda-dinamica {
-  position: fixed;
-  bottom: 70px;
-  right: 10px;
-  background: #fff;
-  padding: 12px 16px;
-  border-radius: 8px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  font-size: 14px;
-  max-width: 240px;
-  z-index: 1001;
-}
-
-#leyenda-dinamica h3 {
-  margin: 0 0 8px 0;
-  font-size: 15px;
-  color: #333;
-}
-
-.leyenda-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.leyenda-color {
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  border-radius: 3px;
-  border: 1px solid #ccc;
-}
-
-/* ============================
-   FOOTER
-============================ */
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #2c3e50;
-  color: #fff;
-  font-size: 12px;
-  text-align: center;
-  padding: 8px 10px;
-  z-index: 999;
-}
-
-/* ============================
-   BOTÓN IDIOMA
-============================ */
-#lang-switch {
-  position: fixed;
-  top: 85px;
-  left: 10px;
-  z-index: 1100;
-  background: #e67e22;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  font-size: 13px;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-}
-
-/* ============================
-   BUSCADOR LEAFLET
-============================ */
-.leaflet-control-geocoder {
-  margin-top: 80px !important;
-}
-
-/* ============================
-   RESPONSIVE
-============================ */
-@media screen and (max-width: 600px) {
-  #panel, #leyenda-dinamica {
-    right: 5px;
-    width: 90%;
+// 🔁 Función para popups
+function popupGenerico(feature, layer) {
+  let props = feature.properties;
+  let contenido = '';
+  for (let key in props) {
+    contenido += <strong>${key}:</strong> ${props[key]}<br>;
   }
+  layer.bindPopup(contenido);
+}
 
-  #menu-btn, #lang-switch {
-    top: 75px;
-    font-size: 12px;
-  }
+// 📁 Capas vacías
+const centroamerica = L.geoJSON(null, {
+  style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
+  onEachFeature: popupGenerico
+});
 
-  header h1 {
-    font-size: 16px;
+const paisesPiloto = L.geoJSON(null, {
+  style: { color: '#ffa500', weight: 2, dashArray: '4', fillOpacity: 0.2 },
+  onEachFeature: popupGenerico
+});
+
+const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit/rlc_corredorseco/wms", {
+  layers: 'corredor_seco_fao',
+  format: 'image/png',
+  transparent: true,
+  version: '1.1.1',
+  attribution: '© FAO GeoNetwork'
+});
+
+// 📥 Cargar datos GeoJSON
+fetch('datos/centroamerica.geojson')
+  .then(res => res.json())
+  .then(data => centroamerica.addData(data));
+
+fetch('datos/paises_piloto.geojson')
+  .then(res => res.json())
+  .then(data => paisesPiloto.addData(data));
+
+// 📌 Agregar al mapa por defecto
+centroamerica.addTo(map);
+paisesPiloto.addTo(map);
+corredorSecoFAO.addTo(map);
+
+// 🎯 Visibilidad y leyenda dinámica
+const leyenda = document.getElementById('leyenda-list');
+function actualizarLeyenda() {
+  leyenda.innerHTML = '';
+  if (map.hasLayer(centroamerica)) leyenda.innerHTML += '<li class="leyenda-item"><span class="leyenda-color" style="background:#0033cc"></span>Centroamérica</li>';
+  if (map.hasLayer(paisesPiloto)) leyenda.innerHTML += '<li class="leyenda-item"><span class="leyenda-color" style="background:#ffa500"></span>Países Piloto</li>';
+  if (map.hasLayer(corredorSecoFAO)) leyenda.innerHTML += '<li class="leyenda-item"><img src="img/icono_wms.png" class="leyenda-color" style="object-fit:contain"> Corredor Seco FAO (WMS)</li>';
+}
+
+// 📌 Control de visibilidad
+const layersCheckboxes = {
+  centroamerica: centroamerica,
+  paises_piloto: paisesPiloto,
+  corredor_seco_fao: corredorSecoFAO
+};
+
+Object.keys(layersCheckboxes).forEach(id => {
+  const input = document.getElementById(id);
+  input.addEventListener('change', function () {
+    this.checked ? layersCheckboxes[id].addTo(map) : map.removeLayer(layersCheckboxes[id]);
+    actualizarLeyenda();
+  });
+});
+
+actualizarLeyenda();
+
+// 🇭🇳 🇬🇹 🇸🇻 Centrado por país
+function centrarEnPais(pais) {
+  const coords = {
+    honduras: [15.2, -86.4],
+    guatemala: [15.5, -90.3],
+    elsalvador: [13.8, -88.9]
+  };
+  const nombres = {
+    honduras: "Honduras",
+    guatemala: "Guatemala",
+    elsalvador: "El Salvador"
+  };
+  if (coords[pais]) {
+    map.setView(coords[pais], 8);
+    const popup = L.popup().setLatLng(coords[pais]).setContent(<b>${nombres[pais]}</b>).openOn(map);
+    setTimeout(() => map.closePopup(popup), 3000);
   }
 }
+
+function vistaGeneral() {
+  map.setView([13.5, -85], 6);
+}
+
+// ☰ Panel toggle
+function togglePanel() {
+  document.getElementById('panel').classList.toggle('hidden');
+}
+
+// 🌐 Cambio de idioma (EN/ES)
+document.getElementById('lang-switch').addEventListener('click', function () {
+  const lang = document.documentElement.lang === 'es' ? 'en' : 'es';
+  document.documentElement.lang = lang;
+  this.textContent = lang === 'es' ? 'English' : 'Español';
+
+  document.getElementById('main-title').textContent = lang === 'es'
+    ? 'Visor Corredor Seco y Zonas Áridas 🌱'
+    : 'Dry Corridor and Arid Zones Viewer 🌱';
+  document.getElementById('panel-title').textContent = lang === 'es' ? 'Capas' : 'Layers';
+
+  document.querySelectorAll('.cap-layer')[0].textContent = lang === 'es' ? 'Corredor Seco FAO (WMS)' : 'FAO Dry Corridor (WMS)';
+  document.querySelectorAll('.cap-layer')[1].textContent = lang === 'es' ? 'Países Piloto' : 'Pilot Countries';
+  document.querySelectorAll('.cap-layer')[2].textContent = lang === 'es' ? 'Centroamérica' : 'Central America';
+});
