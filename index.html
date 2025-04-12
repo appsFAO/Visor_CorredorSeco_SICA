@@ -11,20 +11,23 @@
 <body>
 
   <header>
-    <h1>🌎 Visor Corredor Seco y Zonas Áridas</h1>
-    <nav>
-      <button onclick="centrarEnPais('honduras')" title="Honduras">
-        <img src="img/bandera_honduras.png" alt="HN" />
-      </button>
-      <button onclick="centrarEnPais('guatemala')" title="Guatemala">
-        <img src="img/bandera_guatemala.png" alt="GT" />
-      </button>
-      <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
-        <img src="img/bandera_elsalvador.png" alt="SV" />
-      </button>
-      <button onclick="vistaGeneral()" title="Vista General">🌍</button>
-    </nav>
-  </header>
+    <header>
+  <div class="titulo-contenedor">
+    <h1> Visor Corredor Seco y Zonas Áridas</h1>
+  </div>
+  <div class="banderas">
+    <button onclick="centrarEnPais('honduras')" title="Honduras">
+      <img src="img/bandera_honduras.png" alt="HN" />
+    </button>
+    <button onclick="centrarEnPais('guatemala')" title="Guatemala">
+      <img src="img/bandera_guatemala.png" alt="GT" />
+    </button>
+    <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
+      <img src="img/bandera_elsalvador.png" alt="SV" />
+    </button>
+    <button onclick="vistaGeneral()" title="Vista General">🌍</button>
+  </div>
+</header>
 
   <!-- Botón flotante para abrir/cerrar el panel -->
   <button id="menu-btn" onclick="togglePanel()">☰</button>
