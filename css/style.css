@@ -150,3 +150,90 @@ footer img {
   height: 30px;
   opacity: 0.95;
 }
+/* =====================
+   NAVBAR SUPERIOR
+   ===================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: #2c3e50;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.titulo-navbar h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.banderas-navbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.banderas-navbar img {
+  width: 30px;
+  height: 22px;
+  border: 1px solid white;
+  border-radius: 3px;
+}
+
+/* =====================
+   SIDEBAR IZQUIERDA
+   ===================== */
+.sidebar {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 180px;
+  height: calc(100vh - 70px);
+  background-color: #ecf0f1;
+  padding: 20px 15px;
+  z-index: 999;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.sidebar a:hover {
+  color: #2980b9;
+}
+
+/* =====================
+   AJUSTES DEL MAPA
+   ===================== */
+#map {
+  position: absolute;
+  top: 70px;
+  left: 180px; /* ancho de la sidebar */
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
