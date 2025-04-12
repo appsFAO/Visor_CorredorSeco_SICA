@@ -94,3 +94,57 @@ footer img {
   height: 30px;
   opacity: 0.95;
 }
+/* Botón flotante */
+#menu-btn {
+  position: fixed;
+  top: 80px;
+  left: 10px;
+  z-index: 1100;
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Panel lateral */
+#panel {
+  position: fixed;
+  top: 130px;
+  left: 10px;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  min-width: 180px;
+}
+
+#panel h2 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+#panel .emoji {
+  margin-right: 6px;
+}
+
+#panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#panel li {
+  margin: 6px 0;
+}
+
+/* Estilo oculto */
+#panel.hidden {
+  display: none;
+}
