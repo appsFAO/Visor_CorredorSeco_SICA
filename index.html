@@ -27,26 +27,25 @@
   </header>
 
   <!-- Botón flotante para abrir/cerrar el panel -->
-<button id="menu-btn" onclick="togglePanel()">🗺️ Capas</button>
-
-<!-- Panel de capas -->
-<aside id="panel" class="hidden">
-  <h2><span class="emoji">🗺️</span> Capas disponibles</h2>
-  <ul>
-    <li>
-      <label><input type="checkbox" id="Centroamérica" checked> Centroamérica</label>
-    </li>
-    <li>
-      <label><input type="checkbox" id="Países_piloto" checked> Países Piloto</label>
-    </li>
-  </ul>
-</aside>
-
-  <div id="map"></div>
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
+  <!-- Panel de capas -->
+  <aside id="panel" class="hidden">
+    <h2><span class="emoji">🗺️</span> <strong>Capas disponibles</strong></h2>
+    <ul>
+      <li>
+        <label><input type="checkbox" id="Centroamérica" checked> Centroamérica</label>
+      </li>
+      <li>
+        <label><input type="checkbox" id="Países_piloto" checked> Países Piloto</label>
+      </li>
+    </ul>
+  </aside>
+
+  <div id="map"></div>
+
   <footer>
-    <span>© 2025 Proyecto Flagship de Restauración | FAO </span>
+    <span>© 2025 Proyecto Flagship de Restauración | FAO | Creado por: Grettel Vargas </span>
   </footer>
 
   <script src="js/script.js"></script>
