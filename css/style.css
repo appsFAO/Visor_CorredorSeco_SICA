@@ -1,24 +1,30 @@
+/* ============================
+   BASE GENERAL
+============================ */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f8;
 }
 
 #map {
   position: absolute;
   top: 70px;
-  left: 180px;
+  left: 0;
   right: 0;
   bottom: 0;
   z-index: 0;
 }
 
-/* Navbar */
-.navbar {
+/* ============================
+   HEADER NAVBAR
+============================ */
+header {
   position: fixed;
   top: 0;
-  left: 180px;
+  left: 0;
   right: 0;
   height: 70px;
   background: #2c3e50;
@@ -28,58 +34,37 @@ html, body {
   align-items: center;
   padding: 0 25px;
   z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.navbar h1 {
+header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0;
-  font-size: 18px;
 }
 
-.banderas-navbar button {
+.banderas button {
   background: none;
   border: none;
   cursor: pointer;
   margin-left: 10px;
+  padding: 0;
 }
 
-.banderas-navbar img {
-  width: 32px;
-  height: 22px;
-  border: 1px solid white;
-  border-radius: 3px;
+.banderas img {
+  width: 34px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 180px;
-  height: 100%;
-  background: #ecf0f1;
-  padding: 20px;
-  z-index: 1001;
-}
-
-.sidebar h2 {
-  margin-top: 10px;
-  font-size: 16px;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.sidebar a {
-  text-decoration: none;
-  color: #2c3e50;
-  display: block;
-  padding: 6px 0;
-  font-weight: 500;
-}
-
-/* Botón de capas */
+/* ============================
+   BOTÓN PANEL DE CAPAS
+============================ */
 #menu-btn {
   position: fixed;
   top: 85px;
@@ -88,23 +73,27 @@ html, body {
   background: #3498db;
   color: white;
   border: none;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 10px 14px;
+  font-size: 16px;
   border-radius: 6px;
   cursor: pointer;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* Panel de capas */
+/* ============================
+   PANEL DE CAPAS
+============================ */
 #panel {
   position: fixed;
   top: 130px;
   right: 10px;
   background: white;
-  padding: 15px;
+  padding: 14px 20px;
   border-radius: 8px;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   z-index: 1001;
-  min-width: 200px;
+  width: 220px;
+  min-height: auto;
 }
 
 #panel.hidden {
@@ -112,11 +101,66 @@ html, body {
 }
 
 #panel h2 {
-  font-size: 16px;
+  margin-top: 0;
   margin-bottom: 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
 }
 
-/* Footer */
+#panel .emoji {
+  margin-right: 6px;
+}
+
+#panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#panel li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* ============================
+   LEYENDA DINÁMICA
+============================ */
+#leyenda-dinamica {
+  position: fixed;
+  bottom: 70px;
+  right: 10px;
+  background: white;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 1001;
+  font-size: 14px;
+  max-width: 240px;
+}
+
+#leyenda-dinamica h3 {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+}
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.leyenda-color {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+/* ============================
+   FOOTER
+============================ */
 footer {
   position: fixed;
   bottom: 0;
@@ -126,6 +170,30 @@ footer {
   color: white;
   font-size: 12px;
   text-align: center;
-  padding: 6px;
-  z-index: 1000;
+  padding: 8px;
+  z-index: 999;
+}
+
+/* ============================
+   BOTÓN SWITCH IDIOMA
+============================ */
+#lang-switch {
+  position: fixed;
+  top: 85px;
+  left: 10px;
+  z-index: 1100;
+  background: #e67e22;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ============================
+   BUSCADOR (Leaflet Control)
+============================ */
+.leaflet-control-geocoder {
+  margin-top: 80px !important;
 }
