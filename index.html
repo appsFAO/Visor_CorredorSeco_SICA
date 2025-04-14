@@ -8,14 +8,125 @@
   <!-- Leaflet y Geocoder -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+    }
+
+    #map {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: #2c3e50;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 25px;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .banderas {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .banderas button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .banderas img {
+      width: 34px;
+      height: 24px;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .banderas .leaflet-control-geocoder {
+      margin: 0;
+      transform: scale(0.9);
+      z-index: 1002;
+    }
+
+    #menu-btn {
+      position: fixed;
+      top: 85px;
+      right: 10px;
+      z-index: 1100;
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #2c3e50;
+      color: white;
+      font-size: 12px;
+      text-align: center;
+      padding: 8px;
+      z-index: 999;
+    }
+
+    #lang-switch {
+      position: fixed;
+      top: 85px;
+      left: 10px;
+      z-index: 1100;
+      background: #e67e22;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 </head>
 <body>
 
-  <!-- 🔝 Header con banderas -->
+  <!-- 🔝 Header con banderas y buscador -->
   <header class="navbar">
     <div class="titulo-contenedor">
       <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
@@ -31,38 +142,71 @@
         <img src="img/bandera_elsalvador.png" alt="SV" />
       </button>
       <button onclick="vistaGeneral()" title="Vista General">🌍</button>
-      <button id="lang-switch">English</button>
     </div>
   </header>
 
-  <!-- ☰ Botón menú -->
-  <button id="menu-btn" onclick="togglePanel()">☰</button>
+  <!-- Botón de menú de capas -->
+  <button id="menu-btn" onclick="alert('Aquí va el panel de capas')">☰</button>
+  <button id="lang-switch">English</button>
 
-  <!-- 📂 Panel de capas -->
-  <aside id="panel" class="hidden">
-    <h2><span class="emoji">🗺️</span> <strong id="panel-title">Capas</strong></h2>
-    <ul>
-      <li><label><input type="checkbox" id="corredor_seco_fao" checked> <span class="cap-layer">Corredor Seco FAO (WMS)</span></label></li>
-      <li><label><input type="checkbox" id="paises_piloto" checked> <span class="cap-layer">Países Piloto</span></label></li>
-      <li><label><input type="checkbox" id="centroamerica" checked> <span class="cap-layer">Centroamérica</span></label></li>
-    </ul>
-  </aside>
-
-  <!-- 🧾 Leyenda -->
-  <div id="leyenda-dinamica">
-    <h3>🗂️ Simbología</h3>
-    <ul id="leyenda-list"></ul>
-  </div>
-
-  <!-- 🗺️ Mapa -->
+  <!-- Mapa -->
   <div id="map"></div>
 
-  <!-- 👣 Footer -->
+  <!-- Footer -->
   <footer>
-    <span> &copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
+    <span>&copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
   </footer>
 
-  <!-- 💡 Script principal -->
-  <script src="js/script.js"></script>
+  <!-- Script principal -->
+  <script>
+    // Inicializar el mapa
+    const map = L.map('map').setView([15.5, -88], 6);
+
+    // Capa base
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Geocoder
+    const geocoder = L.Control.geocoder({
+      defaultMarkGeocode: false
+    }).on('markgeocode', function (e) {
+      const bbox = e.geocode.bbox;
+      const poly = L.polygon([
+        bbox.getSouthEast(),
+        bbox.getNorthEast(),
+        bbox.getNorthWest(),
+        bbox.getSouthWest()
+      ]);
+      map.fitBounds(poly.getBounds());
+    }).addTo(map);
+
+    // Mover el geocoder al div de banderas
+    window.addEventListener('load', () => {
+      const geocoderContainer = document.querySelector('.leaflet-control-geocoder');
+      const banderasContainer = document.querySelector('.banderas');
+
+      if (geocoderContainer && banderasContainer) {
+        banderasContainer.appendChild(geocoderContainer);
+      }
+    });
+
+    // Funciones de centrado por país
+    function centrarEnPais(pais) {
+      const coords = {
+        honduras: [14.5, -86.5],
+        guatemala: [15.6, -90.5],
+        elsalvador: [13.7, -88.9]
+      };
+      if (coords[pais]) {
+        map.setView(coords[pais], 7);
+      }
+    }
+
+    function vistaGeneral() {
+      map.setView([15.5, -86], 6);
+    }
+  </script>
 </body>
 </html>
+
