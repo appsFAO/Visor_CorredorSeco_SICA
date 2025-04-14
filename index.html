@@ -8,14 +8,142 @@
   <!-- Leaflet y Geocoder -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-  <link rel="stylesheet" href="css/style.css" />
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <!-- Chart.js para gráficas -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #map {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 350px; /* Ajuste para dar espacio al dashboard */
+      bottom: 0;
+      z-index: 0;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: #2c3e50;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 25px;
+      z-index: 1000;
+    }
+
+    .banderas {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .banderas button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .banderas img {
+      width: 34px;
+      height: 24px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    #menu-btn {
+      position: fixed;
+      top: 85px;
+      right: 10px;
+      z-index: 1100;
+    }
+
+    #leyenda-dinamica {
+      position: fixed;
+      bottom: 70px;
+      right: 360px;
+      background: white;
+      padding: 10px;
+      border-radius: 6px;
+      z-index: 1001;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      font-size: 12px;
+      padding: 8px;
+      z-index: 999;
+    }
+
+    /* 📊 DASHBOARD */
+    #dashboard {
+      position: fixed;
+      top: 70px;
+      right: 0;
+      width: 350px;
+      height: calc(100% - 70px);
+      background: #f9f9f9;
+      padding: 20px;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+      z-index: 1002;
+      overflow-y: auto;
+    }
+
+    #dashboard h2 {
+      font-size: 18px;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .indicador {
+      margin-bottom: 20px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .indicador h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .indicador p {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 5px 0 0;
+      color: #2c3e50;
+    }
+
+    canvas {
+      width: 100% !important;
+      max-height: 250px;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 🔝 Header con banderas -->
+  <!-- 🔝 Header -->
   <header class="navbar">
     <div class="titulo-contenedor">
       <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
@@ -35,35 +163,96 @@
     </div>
   </header>
 
-  <!-- ☰ Botón menú -->
-  <button id="menu-btn" onclick="togglePanel()">☰</button>
-
-  <!-- 📂 Panel de capas -->
-  <aside id="panel" class="hidden">
-    <h2><span class="emoji">🗺️</span> <strong id="panel-title">Capas</strong></h2>
-    <ul>
-      <li><label><input type="checkbox" id="corredor_seco_fao" checked> <span class="cap-layer">Corredor Seco FAO (WMS)</span></label></li>
-      <li><label><input type="checkbox" id="paises_piloto" checked> <span class="cap-layer">Países Piloto</span></label></li>
-      <li><label><input type="checkbox" id="centroamerica" checked> <span class="cap-layer">Centroamérica</span></label></li>
-    </ul>
-  </aside>
-
-  <!-- 🧾 Leyenda -->
-  <div id="leyenda-dinamica">
-    <h3>🗂️ Simbología</h3>
-    <ul id="leyenda-list"></ul>
-  </div>
-
   <!-- 🗺️ Mapa -->
   <div id="map"></div>
+
+  <!-- 📊 Dashboard -->
+  <div id="dashboard">
+    <h2>📊 Indicadores</h2>
+
+    <div class="indicador">
+      <h3>Área restaurada (ha)</h3>
+      <p>125,000</p>
+    </div>
+
+    <div class="indicador">
+      <h3>Países activos</h3>
+      <p>8</p>
+    </div>
+
+    <div class="indicador">
+      <h3>Avance anual (%)</h3>
+      <canvas id="graficoAvance"></canvas>
+    </div>
+  </div>
 
   <!-- 👣 Footer -->
   <footer>
     <span> &copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
   </footer>
 
-  <!-- 💡 Script principal -->
-  <script src="js/script.js"></script>
+  <!-- 🧠 Leaflet + Geocoder + Gráfica -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <script>
+    const map = L.map('map').setView([15.5, -88], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Geocoder
+    const geocoder = L.Control.geocoder({
+      defaultMarkGeocode: false
+    }).on('markgeocode', function (e) {
+      const bbox = e.geocode.bbox;
+      const poly = L.polygon([
+        bbox.getSouthEast(),
+        bbox.getNorthEast(),
+        bbox.getNorthWest(),
+        bbox.getSouthWest()
+      ]);
+      map.fitBounds(poly.getBounds());
+    }).addTo(map);
+
+    // Funciones para centrar por país
+    function centrarEnPais(pais) {
+      const coords = {
+        honduras: [14.5, -86.5],
+        guatemala: [15.6, -90.5],
+        elsalvador: [13.7, -88.9]
+      };
+      if (coords[pais]) {
+        map.setView(coords[pais], 7);
+      }
+    }
+
+    function vistaGeneral() {
+      map.setView([15.5, -88], 6);
+    }
+
+    // Dashboard: gráfico de barras
+    const ctx = document.getElementById('graficoAvance').getContext('2d');
+    const grafico = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['2021', '2022', '2023', '2024', '2025'],
+        datasets: [{
+          label: 'Avance (%)',
+          data: [20, 35, 55, 70, 85],
+          backgroundColor: '#2c3e50'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true, max: 100 }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
-
