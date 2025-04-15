@@ -76,9 +76,14 @@ function actualizarLeyenda() {
 
   if (map.hasLayer(corredorSecoFAO)) {
     leyenda.innerHTML += `
-      <li class="leyenda-item" style="margin-top: 8px; font-weight: bold;">Corredor Seco FAO (WMS)</li>
-      <li class="leyenda-item">
-        <img src="img/leyenda_fao.png" alt="Leyenda FAO" style="width: 100%; border-radius: 6px; border: 1px solid #ccc;" />
+      <li class="leyenda-item" style="margin-top: 10px;">
+        <strong>Corredor Seco FAO (WMS)</strong>
+        <ul style="margin-top: 5px; padding-left: 10px;">
+          <li class="leyenda-item"><span class="leyenda-color" style="background:#d73027"></span> Severa, Z=0</li>
+          <li class="leyenda-item"><span class="leyenda-color" style="background:#fc8d59"></span> Alta, Z=0</li>
+          <li class="leyenda-item"><span class="leyenda-color" style="background:#fee08b"></span> Baja, Z=0</li>
+          <li class="leyenda-item"><span class="leyenda-color" style="background:#91bfdb"></span> Z=0</li>
+        </ul>
       </li>
     `;
   }
