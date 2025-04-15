@@ -22,7 +22,7 @@ function popupGenerico(feature, layer) {
   layer.bindPopup(contenido);
 }
 
-// 📁 Capas vacías
+// 📁 Capas GeoJSON vacías
 const centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
@@ -84,7 +84,7 @@ function actualizarLeyenda() {
   }
 }
 
-// 📌 Control de visibilidad
+// 📌 Control de visibilidad de capas
 const layersCheckboxes = {
   centroamerica: centroamerica,
   paises_piloto: paisesPiloto,
@@ -102,7 +102,7 @@ Object.keys(layersCheckboxes).forEach(id => {
 
 actualizarLeyenda();
 
-// 🇭🇳 🇬🇹 🇸🇻 Centrado por país
+// 🇭🇳 🇬🇹 🇸🇻 Botones de centrado por país
 function centrarEnPais(pais) {
   const coords = {
     honduras: [15.2, -86.4],
@@ -125,7 +125,7 @@ function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// ☰ Panel toggle
+// ☰ Mostrar / Ocultar panel de capas
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
@@ -139,6 +139,7 @@ document.getElementById('lang-switch').addEventListener('click', function () {
   document.getElementById('main-title').textContent = lang === 'es'
     ? '🌱 Visor Corredor Seco y Zonas Áridas'
     : '🌱 Dry Corridor and Arid Zones Viewer';
+
   document.getElementById('panel-title').textContent = lang === 'es' ? 'Capas' : 'Layers';
 
   document.querySelectorAll('.cap-layer')[0].textContent = lang === 'es' ? 'Corredor Seco FAO (WMS)' : 'FAO Dry Corridor (WMS)';
