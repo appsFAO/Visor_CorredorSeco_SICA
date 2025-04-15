@@ -1,18 +1,14 @@
-// 🌍 Inicializar el mapa base
 const map = L.map('map').setView([13.5, -85], 6);
 
-// 🛰️ Fondo satelital
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
   attribution: '&copy; Esri, Maxar, Earthstar Geographics'
 }).addTo(map);
 
-// 🔍 Geocoder
 L.Control.geocoder({
   defaultMarkGeocode: true,
   placeholder: 'Buscar lugar...'
 }).addTo(map);
 
-// 🔁 Función para popups
 function popupGenerico(feature, layer) {
   let props = feature.properties;
   let contenido = '';
@@ -22,7 +18,6 @@ function popupGenerico(feature, layer) {
   layer.bindPopup(contenido);
 }
 
-// 📁 Capas vacías
 const centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
@@ -46,36 +41,26 @@ const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit
   attribution: '© FAO GeoNetwork'
 });
 
-// 📥 Cargar datos GeoJSON
-fetch('datos/centroamerica.geojson').then(res => res.json()).then(data => centroamerica.addData(data));
-fetch('datos/paises_piloto.geojson').then(res => res.json()).then(data => paisesPiloto.addData(data));
-fetch('datos/cs_munis.geojson').then(res => res.json()).then(data => csMunis.addData(data));
+// Cargar GeoJSON
+fetch('datos/centroamerica.geojson').then(r => r.json()).then(d => centroamerica.addData(d));
+fetch('datos/paises_piloto.geojson').then(r => r.json()).then(d => paisesPiloto.addData(d));
+fetch('datos/cs_munis.geojson').then(r => r.json()).then(d => csMunis.addData(d));
 
-// 📌 Agregar al mapa por defecto
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
 csMunis.addTo(map);
 corredorSecoFAO.addTo(map);
 
-// 🎯 Visibilidad y leyenda dinámica
+// Leyenda dinámica
 const leyenda = document.getElementById('leyenda-list');
 function actualizarLeyenda() {
   leyenda.innerHTML = '';
-  if (map.hasLayer(centroamerica)) {
-    leyenda.innerHTML += '<li class="leyenda-item"><span class="leyenda-color" style="background:#0033cc"></span>Centroamérica</li>';
-  }
-  if (map.hasLayer(paisesPiloto)) {
-    leyenda.innerHTML += '<li class="leyenda-item"><span class="leyenda-color" style="background:#ffa500"></span>Países Piloto</li>';
-  }
-  if (map.hasLayer(csMunis)) {
-    leyenda.innerHTML += '<li class="leyenda-item"><span class="leyenda-color" style="background:#e74c3c"></span>Municipios CS</li>';
-  }
-  if (map.hasLayer(corredorSecoFAO)) {
-    leyenda.innerHTML += '<li class="leyenda-item"><img src="img/icono_wms.png" class="leyenda-color" style="object-fit:contain"> Corredor Seco FAO (WMS)</li>';
-  }
+  if (map.hasLayer(centroamerica)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#0033cc"></span>Centroamérica</li>`;
+  if (map.hasLayer(paisesPiloto)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#ffa500"></span>Países Piloto</li>`;
+  if (map.hasLayer(csMunis)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#e74c3c"></span>Municipios CS</li>`;
+  if (map.hasLayer(corredorSecoFAO)) leyenda.innerHTML += `<li class="leyenda-item"><img src="img/icono_wms.png" class="leyenda-color" style="object-fit:contain"> Corredor Seco FAO (WMS)</li>`;
 }
 
-// 📌 Control de visibilidad
 const layersCheckboxes = {
   centroamerica: centroamerica,
   paises_piloto: paisesPiloto,
@@ -95,7 +80,7 @@ Object.keys(layersCheckboxes).forEach(id => {
 
 actualizarLeyenda();
 
-// 🇭🇳 🇬🇹 🇸🇻 Centrado por país
+// Botones de navegación por país
 function centrarEnPais(pais) {
   const coords = {
     honduras: [15.2, -86.4],
@@ -109,10 +94,7 @@ function centrarEnPais(pais) {
   };
   if (coords[pais]) {
     map.setView(coords[pais], 8);
-    const popup = L.popup()
-      .setLatLng(coords[pais])
-      .setContent(`<b>${nombres[pais]}</b>`)
-      .openOn(map);
+    const popup = L.popup().setLatLng(coords[pais]).setContent(`<b>${nombres[pais]}</b>`).openOn(map);
     setTimeout(() => map.closePopup(popup), 3000);
   }
 }
@@ -121,12 +103,12 @@ function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// ☰ Panel toggle
+// Toggle panel
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
 
-// 🌐 Cambio de idioma (ES ↔ EN)
+// Switch idioma
 document.getElementById('lang-switch').addEventListener('click', function () {
   const lang = document.documentElement.lang === 'es' ? 'en' : 'es';
   document.documentElement.lang = lang;
