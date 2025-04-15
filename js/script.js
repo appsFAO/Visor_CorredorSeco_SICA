@@ -22,7 +22,7 @@ function popupGenerico(feature, layer) {
   layer.bindPopup(contenido);
 }
 
-// 📁 Capas GeoJSON vacías
+// 📁 Capas vacías
 const centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
@@ -84,7 +84,7 @@ function actualizarLeyenda() {
   }
 }
 
-// 📌 Control de visibilidad de capas
+// 📌 Control de visibilidad
 const layersCheckboxes = {
   centroamerica: centroamerica,
   paises_piloto: paisesPiloto,
@@ -94,15 +94,17 @@ const layersCheckboxes = {
 
 Object.keys(layersCheckboxes).forEach(id => {
   const input = document.getElementById(id);
-  input.addEventListener('change', function () {
-    this.checked ? layersCheckboxes[id].addTo(map) : map.removeLayer(layersCheckboxes[id]);
-    actualizarLeyenda();
-  });
+  if (input) {
+    input.addEventListener('change', function () {
+      this.checked ? layersCheckboxes[id].addTo(map) : map.removeLayer(layersCheckboxes[id]);
+      actualizarLeyenda();
+    });
+  }
 });
 
 actualizarLeyenda();
 
-// 🇭🇳 🇬🇹 🇸🇻 Botones de centrado por país
+// 🇭🇳 🇬🇹 🇸🇻 Centrado por país
 function centrarEnPais(pais) {
   const coords = {
     honduras: [15.2, -86.4],
@@ -125,12 +127,12 @@ function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// ☰ Mostrar / Ocultar panel de capas
+// ☰ Panel toggle
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
 
-// 🌐 Cambio de idioma (EN/ES)
+// 🌐 Cambio de idioma (ES/EN)
 document.getElementById('lang-switch').addEventListener('click', function () {
   const lang = document.documentElement.lang === 'es' ? 'en' : 'es';
   document.documentElement.lang = lang;
@@ -142,8 +144,11 @@ document.getElementById('lang-switch').addEventListener('click', function () {
 
   document.getElementById('panel-title').textContent = lang === 'es' ? 'Capas' : 'Layers';
 
-  document.querySelectorAll('.cap-layer')[0].textContent = lang === 'es' ? 'Corredor Seco FAO (WMS)' : 'FAO Dry Corridor (WMS)';
-  document.querySelectorAll('.cap-layer')[1].textContent = lang === 'es' ? 'Países Piloto' : 'Pilot Countries';
-  document.querySelectorAll('.cap-layer')[2].textContent = lang === 'es' ? 'Centroamérica' : 'Central America';
-  document.querySelectorAll('.cap-layer')[3].textContent = lang === 'es' ? 'Municipios CS' : 'CS Municipalities';
+  const labels = document.querySelectorAll('.cap-layer');
+  if (labels.length >= 4) {
+    labels[0].textContent = lang === 'es' ? 'Corredor Seco FAO (WMS)' : 'FAO Dry Corridor (WMS)';
+    labels[1].textContent = lang === 'es' ? 'Países Piloto' : 'Pilot Countries';
+    labels[2].textContent = lang === 'es' ? 'Centroamérica' : 'Central America';
+    labels[3].textContent = lang === 'es' ? 'Municipios CS' : 'CS Municipalities';
+  }
 });
