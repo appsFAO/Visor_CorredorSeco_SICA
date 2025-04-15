@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Visor Corredor Seco y Zonas Áridas</title>
 
-  <!-- Leaflet y Geocoder -->
+  <!-- Estilos y Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -14,7 +14,7 @@
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 </head>
 <body>
-  <!-- Header con banderas -->
+
   <header class="navbar">
     <div class="titulo-contenedor">
       <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
@@ -34,12 +34,10 @@
     </div>
   </header>
 
-  <!-- Botón para panel -->
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
-  <!-- Panel de capas -->
   <aside id="panel" class="hidden">
-    <h2><span class="emoji">🗙️</span> <strong id="panel-title">Capas</strong></h2>
+    <h2><span class="emoji">🗺️</span> <strong id="panel-title">Capas</strong></h2>
     <ul>
       <li><label><input type="checkbox" id="corredor_seco_fao" checked> <span class="cap-layer">Corredor Seco FAO (WMS)</span></label></li>
       <li><label><input type="checkbox" id="paises_piloto" checked> <span class="cap-layer">Países Piloto</span></label></li>
@@ -48,16 +46,13 @@
     </ul>
   </aside>
 
-  <!-- Leyenda -->
   <div id="leyenda-dinamica">
     <h3>🗂️ Simbología</h3>
     <ul id="leyenda-list"></ul>
   </div>
 
-  <!-- Mapa -->
   <div id="map"></div>
 
-  <!-- Footer -->
   <footer>
     <span>&copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
   </footer>
