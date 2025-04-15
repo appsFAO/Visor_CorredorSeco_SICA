@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Visor Corredor Seco y Zonas Áridas</title>
 
-  <!-- Leaflet y Geocoder -->
+  <!-- Leaflet y complementos -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -14,32 +14,32 @@
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 </head>
 <body>
-  <!-- Header con banderas -->
+  <!-- 🌍 Encabezado -->
   <header class="navbar">
     <div class="titulo-contenedor">
       <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
     </div>
     <div class="banderas">
       <button onclick="centrarEnPais('honduras')" title="Honduras">
-        <img src="img/bandera_honduras.png" alt="HN" />
+        <img src="img/bandera_honduras.png" alt="Bandera Honduras" />
       </button>
       <button onclick="centrarEnPais('guatemala')" title="Guatemala">
-        <img src="img/bandera_guatemala.png" alt="GT" />
+        <img src="img/bandera_guatemala.png" alt="Bandera Guatemala" />
       </button>
       <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
-        <img src="img/bandera_elsalvador.png" alt="SV" />
+        <img src="img/bandera_elsalvador.png" alt="Bandera El Salvador" />
       </button>
-      <button onclick="vistaGeneral()" title="Vista General">🌍</button>
+      <button onclick="vistaGeneral()" title="Vista general">🌍</button>
       <button id="lang-switch">English</button>
     </div>
   </header>
 
-  <!-- Botón para panel -->
+  <!-- ☰ Botón de panel -->
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
-  <!-- Panel de capas -->
+  <!-- 🗂️ Panel de capas -->
   <aside id="panel" class="hidden">
-    <h2><span class="emoji">🗙️</span> <strong id="panel-title">Capas</strong></h2>
+    <h2><span class="emoji">🗺️</span> <strong id="panel-title">Capas</strong></h2>
     <ul>
       <li><label><input type="checkbox" id="corredor_seco_fao" checked> <span class="cap-layer">Corredor Seco FAO (WMS)</span></label></li>
       <li><label><input type="checkbox" id="paises_piloto" checked> <span class="cap-layer">Países Piloto</span></label></li>
@@ -48,16 +48,19 @@
     </ul>
   </aside>
 
-  <!-- Leyenda -->
+  <!-- 🖍️ Leyenda dinámica -->
   <div id="leyenda-dinamica">
     <h3>🗂️ Simbología</h3>
     <ul id="leyenda-list"></ul>
+    <div id="leyenda-fao" class="hidden">
+      <img src="img/leyenda_fao.png" alt="Leyenda Corredor Seco FAO" style="width: 100%; margin-top: 10px;" />
+    </div>
   </div>
 
-  <!-- Mapa -->
+  <!-- 🗺️ Mapa -->
   <div id="map"></div>
 
-  <!-- Footer -->
+  <!-- 📍 Pie de página -->
   <footer>
     <span>&copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
   </footer>
