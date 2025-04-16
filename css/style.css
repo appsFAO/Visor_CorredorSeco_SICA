@@ -70,7 +70,7 @@ header.navbar {
 ============================ */
 #menu-btn {
   position: fixed;
-  bottom: 230px; /* 🔽 espacio justo encima del panel */
+  bottom: 300px; /* 🔽 espacio justo encima del panel */
   left: 10px;
   background: #3498db;
   color: white;
