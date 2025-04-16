@@ -1,25 +1,29 @@
-// 🌍 Inicializa el mapa
+// 🌍 Inicializar el mapa
 const map = L.map('map').setView([13.5, -85], 6);
 
-// 🗺️ Mapas base
+// 🗺️ Mapas base sin autenticación
 const baseMaps = {
-  '🌍 Satélite': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  "🛰️ Satélite (Esri)": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Esri, Maxar, Earthstar Geographics'
   }),
-  '🗺️ OpenStreetMap': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
+  "🗺️ OpenStreetMap": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
   }),
-  '🧭 Light Gray': L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; Stadia Maps'
+  "🧾 Carto Light": L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; CARTO'
   })
 };
 
-baseMaps['🌍 Satélite'].addTo(map);
+// Establecer fondo por defecto
+baseMaps["🛰️ Satélite (Esri)"].addTo(map);
 
 // 🔍 Geocoder
-L.Control.geocoder({ placeholder: 'Buscar lugar...' }).addTo(map);
+L.Control.geocoder({
+  defaultMarkGeocode: true,
+  placeholder: 'Buscar lugar...'
+}).addTo(map);
 
-// Función genérica para popups
+// 🔁 Popups
 function popupGenerico(feature, layer) {
   let props = feature.properties;
   let contenido = '';
@@ -29,9 +33,9 @@ function popupGenerico(feature, layer) {
   layer.bindPopup(contenido);
 }
 
-// 🧱 Capas vectoriales
+// 🎯 Capas vectoriales (GeoJSON)
 const centroamerica = L.geoJSON(null, {
-  style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
+  style: { color: '#0052cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
 });
 
@@ -41,10 +45,17 @@ const paisesPiloto = L.geoJSON(null, {
 });
 
 const csMunis = L.geoJSON(null, {
-  style: { color: '#c215c2', fillColor: '#c215c2', weight: 1, dashArray: '3', fillOpacity: 0.3 },
+  style: {
+    color: '#c215c2',
+    fillColor: '#c215c2',
+    weight: 1,
+    dashArray: '3',
+    fillOpacity: 0.3
+  },
   onEachFeature: popupGenerico
 });
 
+// 🛰️ Capa WMS de FAO
 const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit/rlc_corredorseco/wms", {
   layers: 'corredor_seco_fao',
   format: 'image/png',
@@ -53,70 +64,85 @@ const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit
   attribution: '© FAO GeoNetwork'
 });
 
-// 📥 Carga de datos
+// 📥 Cargar GeoJSON
 fetch('datos/centroamerica.geojson').then(res => res.json()).then(data => centroamerica.addData(data));
 fetch('datos/paises_piloto.geojson').then(res => res.json()).then(data => paisesPiloto.addData(data));
 fetch('datos/cs_munis.geojson').then(res => res.json()).then(data => csMunis.addData(data));
 
-// ✅ Agrega por defecto
+// ✅ Capas activas por defecto
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
 csMunis.addTo(map);
 corredorSecoFAO.addTo(map);
 
-// 🎯 Control de capas
+// 🧩 Agrupar capas en el control de Leaflet
 const overlayMaps = {
-  'Centroamérica': centroamerica,
-  'Corredor Seco FAO': corredorSecoFAO,
-  'Municipios CS': csMunis,
-  'Países Piloto': paisesPiloto
+  "Centroamérica": centroamerica,
+  "Corredor Seco FAO": corredorSecoFAO,
+  "Municipios CS": csMunis,
+  "Países Piloto": paisesPiloto
 };
 
-L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+L.control.layers(baseMaps, overlayMaps, { position: 'topright', collapsed: false }).addTo(map);
 
-// 📚 Leyenda dinámica
+// 🎨 Leyenda dinámica
 const leyenda = document.getElementById('leyenda-list');
+
 function actualizarLeyenda() {
   leyenda.innerHTML = '';
-  if (map.hasLayer(centroamerica)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#0033cc"></span>Centroamérica</li>`;
-  if (map.hasLayer(paisesPiloto)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#ffa500"></span>Países Piloto</li>`;
-  if (map.hasLayer(csMunis)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#c215c2"></span>Municipios CS</li>`;
+
+  if (map.hasLayer(centroamerica)) {
+    leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#0052cc"></span>Centroamérica</li>`;
+  }
+  if (map.hasLayer(paisesPiloto)) {
+    leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#ffa500"></span>Países Piloto</li>`;
+  }
+  if (map.hasLayer(csMunis)) {
+    leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#c215c2"></span>Municipios CS</li>`;
+  }
   if (map.hasLayer(corredorSecoFAO)) {
-    leyenda.innerHTML += `<li class="leyenda-item" style="font-weight:bold;margin-top:10px;">Corredor Seco FAO</li>`;
     leyenda.innerHTML += `
-      <ul style="padding-left: 10px; margin: 5px 0;">
+      <li class="leyenda-item" style="margin-top: 10px; font-weight: bold;">Corredor Seco FAO (WMS)</li>
+      <ul style="margin-top: 5px; padding-left: 10px;">
         <li class="leyenda-item"><span class="leyenda-color" style="background:#d73027"></span> Severa</li>
         <li class="leyenda-item"><span class="leyenda-color" style="background:#fc8d59"></span> Alta</li>
         <li class="leyenda-item"><span class="leyenda-color" style="background:#fee08b"></span> Baja</li>
         <li class="leyenda-item"><span class="leyenda-color" style="background:#91bfdb"></span> Z=0</li>
-      </ul>`;
+      </ul>
+    `;
   }
 }
-map.on('overlayadd overlayremove', actualizarLeyenda);
+map.on("overlayadd overlayremove", actualizarLeyenda);
 actualizarLeyenda();
 
-// 🌍 Función para centrar en un país
+// 📌 Centrado por país
 function centrarEnPais(pais) {
   const coords = {
+    costarica: [9.75, -83.8],
+    panama: [8.5, -80.5],
     honduras: [15.2, -86.4],
     guatemala: [15.5, -90.3],
-    elsalvador: [13.8, -88.9],
-    costarica: [9.7, -84.2],
-    panama: [8.5, -80.1]
+    elsalvador: [13.8, -88.9]
   };
-  if (coords[pais]) map.setView(coords[pais], 8);
+  if (coords[pais]) {
+    map.setView(coords[pais], 8);
+  }
 }
 
+// 🌍 Vista general
 function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// 🌐 Cambiar idioma
+// 🌐 Cambio de idioma
 document.getElementById('lang-switch').addEventListener('click', function () {
   const lang = document.documentElement.lang === 'es' ? 'en' : 'es';
   document.documentElement.lang = lang;
   this.textContent = lang === 'es' ? 'English' : 'Español';
+
   document.getElementById('main-title').textContent = lang === 'es'
     ? '🌱 Visor Corredor Seco y Zonas Áridas'
     : '🌱 Dry Corridor and Arid Zones Viewer';
+
+  document.getElementById('panel-title').textContent = lang === 'es' ? 'Capas' : 'Layers';
 });
