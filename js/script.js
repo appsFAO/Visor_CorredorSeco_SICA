@@ -34,7 +34,13 @@ const paisesPiloto = L.geoJSON(null, {
 });
 
 const csMunis = L.geoJSON(null, {
-  style: { color: '#c215c2', weight: 1.5, dashArray: '3', fillOpacity: 0.1 },
+  style: {
+    color: '#28a745',        // Borde de los polígonos
+    fillColor: '#28a745',    // Color de relleno
+    weight: 1.5,
+    dashArray: '3',
+    fillOpacity: 0.3         // Qué tan transparente es el color de fondo
+  },
   onEachFeature: popupGenerico
 });
 
