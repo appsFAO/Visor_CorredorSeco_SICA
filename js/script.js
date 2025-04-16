@@ -34,7 +34,7 @@ const paisesPiloto = L.geoJSON(null, {
 });
 
 const csMunis = L.geoJSON(null, {
-  style: { color: '#e74c3c', weight: 1.5, dashArray: '3', fillOpacity: 0.1 },
+  style: { color: '#c215c2', weight: 1.5, dashArray: '3', fillOpacity: 0.1 },
   onEachFeature: popupGenerico
 });
 
