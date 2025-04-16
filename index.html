@@ -5,23 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🌱 Visor Corredor Seco y Zonas Áridas</title>
 
-  <!-- Estilos de Leaflet y complementos -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Scripts base -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <!-- Scripts de Leaflet (defer mejora rendimiento) -->
+  <script defer src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script defer src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <script defer src="js/script.js"></script>
 </head>
 <body>
 
   <!-- 🔝 Encabezado -->
-  <header class="navbar">
+  <header class="navbar" role="banner">
     <div class="titulo-contenedor">
       <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
     </div>
-    <nav class="banderas" aria-label="Selección de país">
+    <nav class="banderas" aria-label="Navegación por país">
       <button onclick="centrarEnPais('costarica')" title="Costa Rica" aria-label="Costa Rica">
         <img src="img/bandera_costarica.png" alt="Bandera de Costa Rica" />
       </button>
@@ -37,40 +38,38 @@
       <button onclick="centrarEnPais('elsalvador')" title="El Salvador" aria-label="El Salvador">
         <img src="img/bandera_elsalvador.png" alt="Bandera de El Salvador" />
       </button>
-      <button onclick="vistaGeneral()" title="Vista general del mapa" aria-label="Vista general del mapa">🌍</button>
+      <button onclick="vistaGeneral()" title="Vista general del mapa" aria-label="Vista general">🌍</button>
       <button id="lang-switch" title="Cambiar idioma" aria-label="Cambiar idioma">English</button>
     </nav>
   </header>
 
-  <!-- ☰ Botón para mostrar/ocultar panel -->
+  <!-- ☰ Botón de panel -->
   <button id="menu-btn" onclick="togglePanel()" aria-label="Mostrar u ocultar capas">☰</button>
 
-  <!-- 🗂️ Panel de capas -->
+  <!-- 📂 Panel de capas -->
   <aside id="panel" class="hidden" aria-label="Panel de capas">
     <h2><span class="emoji">🗺️</span> <strong id="panel-title">Capas</strong></h2>
     <ul>
-      <li><label><input type="checkbox" id="centroamerica" checked> <span class="cap-layer">Centroamérica</span></label></li>
-      <li><label><input type="checkbox" id="corredor_seco_fao" checked> <span class="cap-layer">Corredor Seco FAO</span></label></li>
-      <li><label><input type="checkbox" id="cs_munis" checked> <span class="cap-layer">Municipios CS</span></label></li>
-      <li><label><input type="checkbox" id="paises_piloto" checked> <span class="cap-layer">Países Piloto</span></label></li>
+      <li><label><input type="checkbox" id="centroamerica" checked /> <span class="cap-layer">Centroamérica</span></label></li>
+      <li><label><input type="checkbox" id="corredor_seco_fao" checked /> <span class="cap-layer">Corredor Seco FAO</span></label></li>
+      <li><label><input type="checkbox" id="cs_munis" checked /> <span class="cap-layer">Municipios CS</span></label></li>
+      <li><label><input type="checkbox" id="paises_piloto" checked /> <span class="cap-layer">Países Piloto</span></label></li>
     </ul>
   </aside>
 
   <!-- 🖍️ Leyenda dinámica -->
-  <div id="leyenda-dinamica">
+  <section id="leyenda-dinamica" aria-label="Simbología del mapa">
     <h3>Simbología</h3>
     <ul id="leyenda-list"></ul>
-  </div>
+  </section>
 
-  <!-- 🗺️ Contenedor del mapa -->
-  <div id="map" role="region" aria-label="Mapa interactivo"></div>
+  <!-- 🗺️ Mapa principal -->
+  <main id="map" role="region" aria-label="Mapa interactivo"></main>
 
   <!-- 📍 Pie de página -->
   <footer>
     <span>&copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
   </footer>
 
-  <!-- Script principal -->
-  <script src="js/script.js"></script>
 </body>
 </html>
