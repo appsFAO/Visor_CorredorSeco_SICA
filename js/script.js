@@ -77,16 +77,16 @@ fetch('datos/cs_munis.geojson').then(res => res.json()).then(data => csMunis.add
 
 // 📌 Añadir por defecto
 centroamerica.addTo(map);
-paisesPiloto.addTo(map);
-csMunis.addTo(map);
 corredorSecoFAO.addTo(map);
+csMunis.addTo(map);
+paisesPiloto.addTo(map);
 
 // 🧭 Control de capas
 const capasOverlays = {
   "Centroamérica": centroamerica,
-  "Países Piloto": paisesPiloto,
+  "Corredor Seco FAO (WMS)": corredorSecoFAO,
   "Municipios CS": csMunis,
-  "Corredor Seco FAO (WMS)": corredorSecoFAO
+  "Países Piloto": paisesPiloto
 };
 
 L.control.layers(mapasBase, capasOverlays, { position: 'topleft', collapsed: false }).addTo(map);
