@@ -50,11 +50,6 @@ header.navbar {
   gap: 10px;
 }
 
-.titulo-contenedor h1::before {
-  content: "🌍";
-  font-size: 26px;
-}
-
 .banderas {
   display: flex;
   align-items: center;
