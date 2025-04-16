@@ -1,12 +1,12 @@
-/* ============================
-   🌍 BASE GENERAL
-============================ */
+/* ===========================
+   🌐 BASE GENERAL
+=========================== */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', sans-serif;
-  background: #f8f9fa;
+  background: #f4f6f8;
 }
 
 #map {
@@ -18,9 +18,9 @@ html, body {
   z-index: 0;
 }
 
-/* ============================
-   🧭 ENCABEZADO (NAVBAR)
-============================ */
+/* ===========================
+   🧭 NAVBAR SUPERIOR
+=========================== */
 header.navbar {
   position: fixed;
   top: 0;
@@ -65,39 +65,38 @@ header.navbar {
   box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-/* ============================
-   ☰ BOTÓN DEL PANEL
-============================ */
+/* ===========================
+   ☰ BOTÓN PANEL DE CAPAS
+=========================== */
 #menu-btn {
   position: fixed;
-  bottom: 255px; /* 🔽 espacio justo encima del panel */
+  bottom: 160px;
   left: 10px;
   background: #3498db;
   color: white;
   border: none;
-  padding: 10px 12px;
+  padding: 8px 12px;
   font-size: 18px;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   z-index: 1100;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+  box-shadow: 1px 1px 6px rgba(0,0,0,0.3);
 }
 
-/* ============================
+/* ===========================
    🧾 PANEL DE CAPAS
-============================ */
+=========================== */
 #panel {
   position: fixed;
-  bottom: 70px;
+  bottom: 10px;
   left: 10px;
   background: white;
   border-radius: 10px;
   padding: 16px 18px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   z-index: 1001;
-  width: 250px;
+  width: 260px;
   font-size: 14px;
-  transition: all 0.3s ease;
 }
 
 #panel.hidden {
@@ -107,50 +106,60 @@ header.navbar {
 #panel h2 {
   margin: 0 0 12px 0;
   font-size: 16px;
-  font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 8px;
+}
+
+#panel .emoji {
+  margin-right: 6px;
 }
 
 #panel ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 #panel li {
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 #panel input[type="checkbox"] {
-  margin-right: 8px;
-  accent-color: #007bff;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
-/* ============================
-   🎨 LEYENDA DINÁMICA
-============================ */
+#panel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* ===========================
+   🖍️ LEYENDA DINÁMICA
+=========================== */
 #leyenda-dinamica {
   position: fixed;
-  bottom: 70px;
+  bottom: 10px;
   right: 10px;
   background: white;
   border-radius: 10px;
-  padding: 16px 18px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  padding: 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
   z-index: 1001;
   font-size: 14px;
-  max-width: 240px;
+  max-width: 280px;
 }
 
 #leyenda-dinamica h3 {
   margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 15px;
-  font-weight: bold;
+  margin-bottom: 12px;
+  font-size: 16px;
 }
 
 .leyenda-item {
@@ -168,23 +177,17 @@ header.navbar {
   display: inline-block;
 }
 
-/* ============================
-   🌐 SWITCH DE IDIOMA
-============================ */
-#lang-switch {
-  margin-left: 10px;
-  padding: 6px 12px;
-  background-color: #e67e22;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  cursor: pointer;
+/* Imagen leyenda FAO */
+#leyenda-fao img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
 }
 
-/* ============================
-   📍 PIE DE PÁGINA
-============================ */
+/* ===========================
+   🌍 FOOTER
+=========================== */
 footer {
   position: fixed;
   bottom: 0;
@@ -198,9 +201,23 @@ footer {
   z-index: 999;
 }
 
-/* ============================
+/* ===========================
+   🔄 SWITCH IDIOMA
+=========================== */
+#lang-switch {
+  margin-left: 10px;
+  padding: 4px 10px;
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ===========================
    📱 RESPONSIVE
-============================ */
+=========================== */
 @media (max-width: 768px) {
   header.navbar {
     flex-direction: column;
@@ -213,20 +230,16 @@ footer {
     justify-content: center;
   }
 
-  #panel,
-  #leyenda-dinamica {
+  #panel, #leyenda-dinamica {
     width: 90%;
-    right: 5%;
     font-size: 13px;
+    left: 5%;
+    right: 5%;
   }
 
   #menu-btn {
-    bottom: 200px;
+    bottom: 140px;
     left: 10px;
-  }
-
-  #map {
-    top: 110px;
   }
 
   footer {
