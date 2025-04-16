@@ -1,4 +1,4 @@
-/* 🌍 ESTILO GENERAL */
+/* ========== 🌍 BASE GENERAL ========== */
 html, body {
   margin: 0;
   padding: 0;
@@ -7,7 +7,6 @@ html, body {
   background-color: #f4f6f9;
 }
 
-/* 🗺️ MAPA */
 #map {
   position: absolute;
   top: 70px;
@@ -17,48 +16,144 @@ html, body {
   z-index: 0;
 }
 
-/* 🧭 NAVBAR */
+/* ========== 🧭 NAVBAR ========== */
 header.navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 70px;
-  background-color: #2c3e50;
+  background: #2c3e50;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.titulo-contenedor {
+  flex-grow: 1;
+  text-align: center;
 }
 
 .titulo-contenedor h1 {
   margin: 0;
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 26px;
+  font-weight: 700;
   color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ========== 🌐 BANDERAS ========== */
+.banderas {
+  position: absolute;
+  right: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* 🖍️ LEYENDA */
+.banderas button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.banderas img {
+  width: 28px;
+  height: 20px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* ========== ☰ BOTÓN PANEL ========== */
+#menu-btn {
+  position: fixed;
+  bottom: 180px;
+  left: 10px;
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== 📂 PANEL DE CAPAS ========== */
+#panel {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  width: 260px;
+  font-size: 14px;
+}
+
+#panel.hidden {
+  display: none;
+}
+
+#panel h2 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+#panel .emoji {
+  margin-right: 8px;
+}
+
+#panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#panel li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+#panel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* ========== 🖍️ LEYENDA DINÁMICA ========== */
 #leyenda-dinamica {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #fff;
+  bottom: 10px;
+  right: 10px;
+  background: #ffffff;
   padding: 14px 16px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 1001;
   font-size: 14px;
   max-width: 260px;
 }
 
 #leyenda-dinamica h3 {
-  margin: 0 0 12px;
+  margin: 0 0 12px 0;
   font-size: 15px;
   font-weight: bold;
 }
@@ -78,7 +173,7 @@ header.navbar {
   display: inline-block;
 }
 
-/* 📍 FOOTER */
+/* ========== 📍 FOOTER ========== */
 footer {
   position: fixed;
   bottom: 0;
@@ -88,22 +183,53 @@ footer {
   color: white;
   font-size: 12px;
   text-align: center;
-  padding: 10px;
+  padding: 10px 12px;
   z-index: 999;
 }
 
-/* 📱 RESPONSIVO */
+/* ========== 🌐 SWITCH IDIOMA ========== */
+#lang-switch {
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#lang-switch:hover {
+  background-color: #cf711a;
+}
+
+/* ========== 📱 RESPONSIVE ========== */
 @media (max-width: 768px) {
-  .titulo-contenedor h1 {
-    font-size: 18px;
-    text-align: center;
+  header.navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
   }
 
-  #leyenda-dinamica {
-    font-size: 13px;
+  .banderas {
+    position: static;
+    margin-top: 10px;
+    justify-content: center;
+  }
+
+  #panel, #leyenda-dinamica {
     width: 90%;
-    left: 5%;
-    right: 5%;
+    left: 5% !important;
+    right: 5% !important;
+    font-size: 13px;
+  }
+
+  #menu-btn {
+    bottom: 100px;
+  }
+
+  .titulo-contenedor h1 {
+    font-size: 20px;
   }
 
   footer {
