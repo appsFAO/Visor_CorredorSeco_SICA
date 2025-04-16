@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Scripts de Leaflet (defer mejora rendimiento) -->
+  <!-- Scripts de Leaflet -->
   <script defer src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script defer src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   <script defer src="js/script.js"></script>
@@ -42,20 +42,6 @@
       <button id="lang-switch" title="Cambiar idioma" aria-label="Cambiar idioma">English</button>
     </nav>
   </header>
-
-  <!-- ☰ Botón de panel -->
-  <button id="menu-btn" onclick="togglePanel()" aria-label="Mostrar u ocultar capas">☰</button>
-
-  <!-- 📂 Panel de capas -->
-  <aside id="panel" class="hidden" aria-label="Panel de capas">
-    <h2><span class="emoji">🗺️</span> <strong id="panel-title">Capas</strong></h2>
-    <ul>
-      <li><label><input type="checkbox" id="centroamerica" checked /> <span class="cap-layer">Centroamérica</span></label></li>
-      <li><label><input type="checkbox" id="corredor_seco_fao" checked /> <span class="cap-layer">Corredor Seco FAO</span></label></li>
-      <li><label><input type="checkbox" id="cs_munis" checked /> <span class="cap-layer">Municipios CS</span></label></li>
-      <li><label><input type="checkbox" id="paises_piloto" checked /> <span class="cap-layer">Países Piloto</span></label></li>
-    </ul>
-  </aside>
 
   <!-- 🖍️ Leyenda dinámica -->
   <section id="leyenda-dinamica" aria-label="Simbología del mapa">
