@@ -1,3 +1,6 @@
+/* ===========================
+   🌐 BASE GENERAL
+=========================== */
 html, body {
   margin: 0;
   padding: 0;
@@ -5,6 +8,7 @@ html, body {
   font-family: 'Segoe UI', sans-serif;
   background: #f8f9fa;
 }
+
 #map {
   position: absolute;
   top: 70px;
@@ -13,6 +17,10 @@ html, body {
   bottom: 0;
   z-index: 0;
 }
+
+/* ===========================
+   🧭 ENCABEZADO (NAVBAR)
+=========================== */
 header.navbar {
   position: fixed;
   top: 0;
@@ -26,51 +34,103 @@ header.navbar {
   align-items: center;
   padding: 0 20px;
   z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
+
 .titulo-contenedor h1 {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
+  white-space: nowrap;
 }
+
+.banderas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .banderas button {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
+
 .banderas img {
   width: 30px;
   height: 22px;
+  object-fit: cover;
   border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
+
+/* ===========================
+   ☰ BOTÓN PANEL DE CAPAS
+=========================== */
 #menu-btn {
   position: fixed;
-  bottom: 170px;
+  bottom: 140px;
   left: 10px;
-  z-index: 1100;
   background: #3498db;
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 10px 14px;
   font-size: 16px;
   border-radius: 6px;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 1px 1px 6px rgba(0,0,0,0.25);
 }
+
+/* ===========================
+   🧾 PANEL DE CAPAS (ESQUINA INFERIOR IZQUIERDA)
+=========================== */
 #panel {
   position: fixed;
-  bottom: 10px;
+  bottom: 80px;
   left: 10px;
   background: white;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 14px 20px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   z-index: 1001;
   width: 240px;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
 }
+
 #panel.hidden {
   display: none;
 }
+
+#panel h2 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+#panel .emoji {
+  margin-right: 6px;
+}
+
+#panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#panel li {
+  margin-bottom: 10px;
+}
+
+/* ===========================
+   🖍️ LEYENDA DINÁMICA
+=========================== */
 #leyenda-dinamica {
   position: fixed;
-  bottom: 10px;
+  bottom: 80px;
   right: 10px;
   background: white;
   border-radius: 8px;
@@ -80,6 +140,31 @@ header.navbar {
   font-size: 14px;
   max-width: 240px;
 }
+
+#leyenda-dinamica h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.leyenda-color {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  display: inline-block;
+}
+
+/* ===========================
+   🌍 FOOTER
+=========================== */
 footer {
   position: fixed;
   bottom: 0;
@@ -91,4 +176,54 @@ footer {
   padding: 8px 12px;
   text-align: center;
   z-index: 999;
+}
+
+/* ===========================
+   🌐 IDIOMA SWITCH
+=========================== */
+#lang-switch {
+  margin-left: 10px;
+  padding: 6px 12px;
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ===========================
+   📱 RESPONSIVE MÓVIL
+=========================== */
+@media (max-width: 768px) {
+  header.navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .banderas {
+    margin-top: 8px;
+    justify-content: center;
+  }
+
+  #panel, #leyenda-dinamica {
+    width: 90%;
+    left: 5% !important;
+    right: 5% !important;
+    font-size: 13px;
+  }
+
+  #menu-btn {
+    bottom: 140px;
+    left: 10px;
+  }
+
+  #map {
+    top: 110px;
+  }
+
+  footer {
+    font-size: 10px;
+  }
 }
