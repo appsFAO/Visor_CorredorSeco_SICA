@@ -20,12 +20,12 @@ const centroamerica = L.geoJSON(null, {
   onEachFeature: bindPopup
 });
 
-// ✅ Capa WMS funcional desde FAO
-const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/wms", {
+// ✅ Capa WMS funcional desde FAO con workspace
+const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit/rlc_corredorseco/wms", {
   layers: 'corredor_seco_fao',
   format: 'image/png',
   transparent: true,
-  version: '1.1.1',
+  version: '1.3.0',
   attribution: '© FAO GeoNetwork'
 });
 
@@ -107,12 +107,7 @@ function actualizarLeyenda() {
   if (map.hasLayer(corredorSecoFAO)) {
     leyenda.innerHTML += `
       <li class="leyenda-item" style="font-weight: bold;">Corredor Seco FAO (WMS)</li>
-      <ul style="margin-top: 5px; padding-left: 10px;">
-        <li class="leyenda-item"><span class="leyenda-color" style="background:#d73027"></span> Severa</li>
-        <li class="leyenda-item"><span class="leyenda-color" style="background:#fc8d59"></span> Alta</li>
-        <li class="leyenda-item"><span class="leyenda-color" style="background:#fee08b"></span> Baja</li>
-        <li class="leyenda-item"><span class="leyenda-color" style="background:#91bfdb"></span> Z=0</li>
-      </ul>`;
+      <img src="https://data.apps.fao.org/map/gsrv/edit/rlc_corredorseco/wms?service=WMS&version=1.3.0&request=GetLegendGraphic&format=image/png&layer=corredor_seco_fao" alt="Leyenda Corredor Seco" style="margin-top: 5px; max-width:200px;">`;
   }
 }
 
