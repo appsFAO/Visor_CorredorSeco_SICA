@@ -19,7 +19,7 @@ html, body {
 }
 
 /* ===========================
-   🧭 HEADER (NAVBAR)
+   🧭 ENCABEZADO (NAVBAR)
 =========================== */
 header.navbar {
   position: fixed;
@@ -66,16 +66,16 @@ header.navbar {
 }
 
 /* ===========================
-   ☰ BOTÓN DE PANEL
+   ☰ BOTÓN PANEL DE CAPAS
 =========================== */
 #menu-btn {
   position: fixed;
-  top: 85px;
-  right: 10px;
+  bottom: 140px;
+  left: 10px;
   background: #3498db;
   color: white;
   border: none;
-  padding: 8px 14px;
+  padding: 10px 14px;
   font-size: 16px;
   border-radius: 6px;
   cursor: pointer;
@@ -84,12 +84,12 @@ header.navbar {
 }
 
 /* ===========================
-   🧾 PANEL DE CAPAS
+   🧾 PANEL DE CAPAS (ESQUINA INFERIOR IZQUIERDA)
 =========================== */
 #panel {
   position: fixed;
-  top: 130px;
-  right: 10px;
+  bottom: 80px;
+  left: 10px;
   background: white;
   border-radius: 8px;
   padding: 14px 20px;
@@ -97,6 +97,7 @@ header.navbar {
   z-index: 1001;
   width: 240px;
   font-size: 14px;
+  transition: all 0.3s ease-in-out;
 }
 
 #panel.hidden {
@@ -129,7 +130,7 @@ header.navbar {
 =========================== */
 #leyenda-dinamica {
   position: fixed;
-  bottom: 70px;
+  bottom: 80px;
   right: 10px;
   background: white;
   border-radius: 8px;
@@ -144,8 +145,6 @@ header.navbar {
   margin-top: 0;
   margin-bottom: 10px;
   font-size: 15px;
-  font-weight: bold;
-  color: #2c3e50;
 }
 
 .leyenda-item {
@@ -161,13 +160,6 @@ header.navbar {
   border-radius: 3px;
   border: 1px solid #ccc;
   display: inline-block;
-}
-
-#leyenda-dinamica img {
-  width: 100%;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-top: 5px;
 }
 
 /* ===========================
@@ -191,17 +183,17 @@ footer {
 =========================== */
 #lang-switch {
   margin-left: 10px;
-  padding: 4px 10px;
+  padding: 6px 12px;
   background-color: #e67e22;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
 }
 
 /* ===========================
-   📱 RESPONSIVE
+   📱 RESPONSIVE MÓVIL
 =========================== */
 @media (max-width: 768px) {
   header.navbar {
@@ -217,13 +209,14 @@ footer {
 
   #panel, #leyenda-dinamica {
     width: 90%;
-    right: 5%;
+    left: 5% !important;
+    right: 5% !important;
     font-size: 13px;
   }
 
   #menu-btn {
-    top: 75px;
-    right: 10px;
+    bottom: 140px;
+    left: 10px;
   }
 
   #map {
