@@ -14,14 +14,6 @@ const baseLayers = {
   })
 };
 
-L.control.layers(baseLayers).addTo(map);
-
-// 🔍 Geocoder
-L.Control.geocoder({
-  defaultMarkGeocode: true,
-  placeholder: 'Buscar ubicación...'
-}).addTo(map);
-
 // 📦 Capas vectoriales
 const centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
@@ -57,6 +49,23 @@ const paisesPiloto = L.geoJSON(null, {
   },
   onEachFeature: bindPopup
 });
+
+// 🧩 Capas superpuestas visibles en el panel
+const overlayLayers = {
+  "Centroamérica": centroamerica,
+  "Corredor Seco FAO (WMS)": corredorSecoFAO,
+  "Municipios CS": csMunis,
+  "Países Piloto": paisesPiloto
+};
+
+// 📋 Agregar control de capas
+L.control.layers(baseLayers, overlayLayers).addTo(map);
+
+// 🔍 Geocoder
+L.Control.geocoder({
+  defaultMarkGeocode: true,
+  placeholder: 'Buscar ubicación...'
+}).addTo(map);
 
 // 📥 Cargar datos GeoJSON
 fetch('datos/centroamerica.geojson').then(r => r.json()).then(d => centroamerica.addData(d));
@@ -109,7 +118,7 @@ function actualizarLeyenda() {
 
 actualizarLeyenda();
 
-// 📌 Control de visibilidad
+// 📌 Control de visibilidad (vinculado a checkboxes del panel lateral si los hay)
 const capas = {
   centroamerica,
   corredor_seco_fao: corredorSecoFAO,
