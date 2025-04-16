@@ -73,12 +73,18 @@ header.navbar {
 }
 
 /* 🧭 LEAFLET CAPAS FUSIONADAS */
+.leaflet-top.leaflet-right {
+  top: 70px !important; /* debajo del zoom */
+}
+
 .leaflet-control-layers {
   background-color: white;
   border-radius: 10px;
   padding: 10px;
   font-size: 14px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  line-height: 1.4;
+  min-width: 180px;
 }
 
 .leaflet-control-layers label {
@@ -86,6 +92,7 @@ header.navbar {
   align-items: center;
   gap: 6px;
   margin-bottom: 6px;
+  font-size: 14px;
 }
 
 .leaflet-control-layers-separator {
