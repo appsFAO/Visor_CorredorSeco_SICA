@@ -75,7 +75,7 @@ header.navbar {
 /* ========== ☰ BOTÓN PANEL ========== */
 #menu-btn {
   position: fixed;
-  bottom: 120px;
+  bottom: 150px;
   left: 10px;
   background: #3498db;
   color: white;
