@@ -4,58 +4,104 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🌱 Visor Corredor Seco y Zonas Áridas</title>
-
-  <!-- Estilos -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    html, body, #map {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-  <!-- Scripts con defer -->
-  <script defer src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script defer src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-  <script defer src="js/script.js"></script>
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #2c3e50;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 12px;
+      z-index: 999;
+    }
+
+    #leyenda-dinamica {
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      font-size: 13px;
+    }
+
+    .leyenda-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .leyenda-color {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
-
-  <!-- 🧭 Navbar -->
-  <header class="navbar" role="banner">
-    <div class="titulo-contenedor">
-      <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
-    </div>
-    <nav class="banderas" aria-label="Navegación por país">
-      <button onclick="centrarEnPais('costarica')" title="Costa Rica" aria-label="Costa Rica">
-        <img src="img/bandera_costarica.png" alt="Bandera de Costa Rica" />
-      </button>
-      <button onclick="centrarEnPais('panama')" title="Panamá" aria-label="Panamá">
-        <img src="img/bandera_panama.png" alt="Bandera de Panamá" />
-      </button>
-      <button onclick="centrarEnPais('honduras')" title="Honduras" aria-label="Honduras">
-        <img src="img/bandera_honduras.png" alt="Bandera de Honduras" />
-      </button>
-      <button onclick="centrarEnPais('guatemala')" title="Guatemala" aria-label="Guatemala">
-        <img src="img/bandera_guatemala.png" alt="Bandera de Guatemala" />
-      </button>
-      <button onclick="centrarEnPais('elsalvador')" title="El Salvador" aria-label="El Salvador">
-        <img src="img/bandera_elsalvador.png" alt="Bandera de El Salvador" />
-      </button>
-      <button onclick="vistaGeneral()" title="Vista general del mapa" aria-label="Vista general">🌍</button>
-      <button id="lang-switch" title="Cambiar idioma" aria-label="Cambiar idioma">English</button>
-    </nav>
+  <header class="navbar">
+    <h1>🌱 Visor Corredor Seco y Zonas Áridas</h1>
   </header>
 
-  <!-- 🗺️ Mapa principal -->
-  <div id="map" role="region" aria-label="Mapa interactivo"></div>
+  <div id="map"></div>
 
-  <!-- 🖍️ Leyenda dinámica -->
-  <section id="leyenda-dinamica" aria-label="Simbología del mapa">
-    <h3>Simbología</h3>
-    <ul id="leyenda-list"></ul>
-  </section>
+  <div id="leyenda-dinamica">
+    <h3 style="margin:0 0 10px 0">Simbología</h3>
+    <ul style="list-style:none; padding-left:0; margin:0">
+      <li class="leyenda-item"><span class="leyenda-color" style="background:#0033cc"></span>Centroamérica</li>
+      <li class="leyenda-item"><span class="leyenda-color" style="background:#ffa500"></span>Países Piloto</li>
+      <li class="leyenda-item"><span class="leyenda-color" style="background:#c215c2"></span>Municipios CS</li>
+    </ul>
+  </div>
 
-  <!-- 📍 Footer -->
   <footer>
-    <span>&copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
+    &copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas
   </footer>
 
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([13.5, -85], 6);
+
+    // Mapa base OSM
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+  </script>
 </body>
 </html>
