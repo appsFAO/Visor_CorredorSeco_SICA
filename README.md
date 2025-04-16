@@ -1,4 +1,4 @@
-# Visor Corredor Seco - SICA 🌱
+# Visor Corredor Seco y Zonas Áridas - SICA 🌱
 
 Este visor muestra las capas geoespaciales de Centroamérica y países piloto (Honduras, Guatemala y El Salvador).
 
