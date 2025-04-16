@@ -64,78 +64,19 @@ header.navbar {
   border: none;
   cursor: pointer;
   padding: 0;
+  transition: transform 0.2s;
+}
+
+.banderas button:hover {
+  transform: scale(1.1);
 }
 
 .banderas img {
   width: 28px;
   height: 20px;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-}
-
-/* ☰ BOTÓN PANEL */
-#menu-btn {
-  position: fixed;
-  bottom: 160px;
-  left: 10px;
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 10px 12px;
-  font-size: 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  z-index: 1100;
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
-}
-
-/* 📂 PANEL DE CAPAS */
-#panel {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  background: #ffffff;
-  padding: 16px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1001;
-  width: 260px;
-  font-size: 14px;
-}
-
-#panel.hidden {
-  display: none;
-}
-
-#panel h2 {
-  margin: 0 0 12px 0;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-}
-
-#panel .emoji {
-  margin-right: 8px;
-}
-
-#panel ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#panel li {
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-}
-
-#panel label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  display: block;
 }
 
 /* 🖍️ LEYENDA DINÁMICA */
@@ -146,7 +87,7 @@ header.navbar {
   background: #ffffff;
   padding: 14px 16px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 1001;
   font-size: 14px;
   max-width: 260px;
@@ -173,11 +114,11 @@ header.navbar {
   display: inline-block;
 }
 
-/* 🧱 BASEMAP SELECTOR */
+/* 🧱 BASEMAP SELECTOR (Leaflet Control) */
 .leaflet-control-layers {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   font-size: 13px;
   padding: 8px;
 }
@@ -212,11 +153,12 @@ footer {
   padding: 6px 12px;
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
 
 #lang-switch:hover {
   background-color: #cf711a;
+  transform: scale(1.05);
 }
 
 /* 📱 RESPONSIVE */
@@ -231,17 +173,14 @@ footer {
     position: static;
     margin-top: 10px;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
-  #panel, #leyenda-dinamica {
+  #leyenda-dinamica {
     width: 90%;
     left: 5% !important;
     right: 5% !important;
     font-size: 13px;
-  }
-
-  #menu-btn {
-    bottom: 120px;
   }
 
   .titulo-contenedor h1 {
