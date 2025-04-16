@@ -251,3 +251,7 @@ footer {
     font-size: 11px;
   }
 }
+#panel,
+#menu-btn {
+  display: none !important;
+}
