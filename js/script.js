@@ -20,7 +20,7 @@ const centroamerica = L.geoJSON(null, {
   onEachFeature: bindPopup
 });
 
-// ✅ Capa WMS corregida
+// ✅ Capa WMS funcional desde FAO
 const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/wms", {
   layers: 'corredor_seco_fao',
   format: 'image/png',
@@ -50,7 +50,7 @@ const paisesPiloto = L.geoJSON(null, {
   onEachFeature: bindPopup
 });
 
-// 🧩 Capas superpuestas visibles en el panel
+// 🧩 Capas superpuestas (visibles en control)
 const overlayLayers = {
   "Centroamérica": centroamerica,
   "Corredor Seco FAO (WMS)": corredorSecoFAO,
@@ -58,7 +58,7 @@ const overlayLayers = {
   "Países Piloto": paisesPiloto
 };
 
-// 📋 Agregar control de capas
+// 📋 Control de capas
 L.control.layers(baseLayers, overlayLayers).addTo(map);
 
 // 🔍 Geocoder
@@ -72,7 +72,7 @@ fetch('datos/centroamerica.geojson').then(r => r.json()).then(d => centroamerica
 fetch('datos/cs_munis.geojson').then(r => r.json()).then(d => csMunis.addData(d));
 fetch('datos/paises_piloto.geojson').then(r => r.json()).then(d => paisesPiloto.addData(d));
 
-// ➕ Capas por defecto
+// ➕ Capas activadas por defecto
 map.addLayer(centroamerica);
 map.addLayer(corredorSecoFAO);
 map.addLayer(csMunis);
@@ -118,7 +118,7 @@ function actualizarLeyenda() {
 
 actualizarLeyenda();
 
-// 📌 Control de visibilidad (vinculado a checkboxes del panel lateral si los hay)
+// 📌 Control lateral si tienes checkboxes personalizados
 const capas = {
   centroamerica,
   corredor_seco_fao: corredorSecoFAO,
@@ -159,7 +159,7 @@ function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// ☰ Mostrar/Ocultar panel
+// ☰ Mostrar/Ocultar panel lateral
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
