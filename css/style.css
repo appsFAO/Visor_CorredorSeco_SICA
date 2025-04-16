@@ -50,6 +50,7 @@ header.navbar {
   gap: 10px;
 }
 
+/* 🌐 BANDERAS */
 .banderas {
   position: absolute;
   right: 20px;
@@ -63,6 +64,11 @@ header.navbar {
   border: none;
   cursor: pointer;
   padding: 0;
+  transition: transform 0.2s;
+}
+
+.banderas button:hover {
+  transform: scale(1.1);
 }
 
 .banderas img {
@@ -70,6 +76,7 @@ header.navbar {
   height: 20px;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  display: block;
 }
 
 /* 🖍️ LEYENDA DINÁMICA */
@@ -146,11 +153,12 @@ footer {
   padding: 6px 12px;
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s;
 }
 
 #lang-switch:hover {
   background-color: #cf711a;
+  transform: scale(1.05);
 }
 
 /* 📱 RESPONSIVE */
@@ -165,6 +173,7 @@ footer {
     position: static;
     margin-top: 10px;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   #leyenda-dinamica {
