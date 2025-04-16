@@ -4,7 +4,7 @@ html, body {
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', sans-serif;
-  background: #f4f6f9;
+  background-color: #f4f6f9;
 }
 
 #map {
@@ -27,38 +27,35 @@ header.navbar {
   color: white;
   z-index: 1000;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
   padding: 0 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .titulo-contenedor {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .titulo-contenedor h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
-  text-align: center;
   color: white;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  display: flex;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
 .banderas {
+  position: absolute;
+  right: 20px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .banderas button {
@@ -72,7 +69,7 @@ header.navbar {
   width: 28px;
   height: 20px;
   border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25);
 }
 
 /* ========== ☰ BOTÓN PANEL ========== */
@@ -83,12 +80,12 @@ header.navbar {
   background: #3498db;
   color: white;
   border: none;
-  padding: 8px 12px;
-  font-size: 16px;
+  padding: 10px 12px;
+  font-size: 18px;
   border-radius: 6px;
   cursor: pointer;
   z-index: 1100;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
+  box-shadow: 1px 1px 6px rgba(0,0,0,0.3);
 }
 
 /* ========== 📂 PANEL DE CAPAS ========== */
@@ -96,10 +93,10 @@ header.navbar {
   position: fixed;
   bottom: 10px;
   left: 10px;
-  background: white;
+  background: #ffffff;
   padding: 16px;
   border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 1001;
   width: 260px;
   font-size: 14px;
@@ -114,10 +111,11 @@ header.navbar {
   font-size: 16px;
   display: flex;
   align-items: center;
+  font-weight: bold;
 }
 
 #panel .emoji {
-  margin-right: 6px;
+  margin-right: 8px;
 }
 
 #panel ul {
@@ -127,10 +125,16 @@ header.navbar {
 }
 
 #panel li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 6px;
+}
+
+#panel label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 }
 
 /* ========== 🖍️ LEYENDA DINÁMICA ========== */
@@ -138,18 +142,17 @@ header.navbar {
   position: fixed;
   bottom: 10px;
   right: 10px;
-  background: white;
+  background: #ffffff;
   padding: 14px 16px;
   border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 1001;
   font-size: 14px;
   max-width: 260px;
 }
 
 #leyenda-dinamica h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
+  margin: 0 0 12px 0;
   font-size: 15px;
   font-weight: bold;
 }
@@ -179,7 +182,7 @@ footer {
   color: white;
   font-size: 12px;
   text-align: center;
-  padding: 8px;
+  padding: 10px 12px;
   z-index: 999;
 }
 
@@ -189,9 +192,14 @@ footer {
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 6px 12px;
+  font-size: 13px;
   cursor: pointer;
-  font-size: 12px;
+  transition: background 0.2s;
+}
+
+#lang-switch:hover {
+  background-color: #cf711a;
 }
 
 /* ========== 📱 RESPONSIVE ========== */
@@ -203,14 +211,15 @@ footer {
   }
 
   .banderas {
-    margin-top: 6px;
+    position: static;
+    margin-top: 10px;
     justify-content: center;
   }
 
   #panel, #leyenda-dinamica {
     width: 90%;
-    left: 5%;
-    right: 5%;
+    left: 5% !important;
+    right: 5% !important;
     font-size: 13px;
   }
 
@@ -218,11 +227,11 @@ footer {
     bottom: 100px;
   }
 
-  footer {
-    font-size: 11px;
+  .titulo-contenedor h1 {
+    font-size: 20px;
   }
 
-  .titulo-contenedor h1 {
-    font-size: 18px;
+  footer {
+    font-size: 11px;
   }
 }
