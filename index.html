@@ -14,21 +14,30 @@
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 </head>
 <body>
+  <!-- 🌍 Encabezado -->
   <header class="navbar">
     <div class="titulo-contenedor">
       <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
     </div>
     <div class="banderas">
-      <button onclick="centrarEnPais('honduras')" title="Honduras"><img src="img/bandera_honduras.png" alt="HN" /></button>
-      <button onclick="centrarEnPais('guatemala')" title="Guatemala"><img src="img/bandera_guatemala.png" alt="GT" /></button>
-      <button onclick="centrarEnPais('elsalvador')" title="El Salvador"><img src="img/bandera_elsalvador.png" alt="SV" /></button>
-      <button onclick="vistaGeneral()" title="Vista General">🌍</button>
+      <button onclick="centrarEnPais('honduras')" title="Honduras">
+        <img src="img/bandera_honduras.png" alt="Bandera Honduras" />
+      </button>
+      <button onclick="centrarEnPais('guatemala')" title="Guatemala">
+        <img src="img/bandera_guatemala.png" alt="Bandera Guatemala" />
+      </button>
+      <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
+        <img src="img/bandera_elsalvador.png" alt="Bandera El Salvador" />
+      </button>
+      <button onclick="vistaGeneral()" title="Vista general">🌍</button>
       <button id="lang-switch">English</button>
     </div>
   </header>
 
+  <!-- ☰ Botón de panel -->
   <button id="menu-btn" onclick="togglePanel()">☰</button>
 
+  <!-- Panel de capas -->
   <aside id="panel" class="hidden">
     <h2><span class="emoji">🗺️</span> <strong id="panel-title">Capas</strong></h2>
     <ul>
@@ -39,17 +48,19 @@
     </ul>
   </aside>
 
+  <!-- 🖍️ Leyenda dinámica -->
   <div id="leyenda-dinamica">
     <h3>Simbología</h3>
     <ul id="leyenda-list"></ul>
-    <div id="leyenda-fao" class="hidden">
-      <img src="img/leyenda_fao.png" alt="Leyenda Corredor Seco FAO" style="width: 100%; margin-top: 10px;" />
-    </div>
   </div>
 
+  <!-- 🗺️ Mapa -->
   <div id="map"></div>
 
-  <footer><span>&copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span></footer>
+  <!-- 📍 Pie de página -->
+  <footer>
+    <span>&copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
+  </footer>
 
   <script src="js/script.js"></script>
 </body>
