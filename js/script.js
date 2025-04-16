@@ -28,7 +28,8 @@ const centroamerica = L.geoJSON(null, {
   onEachFeature: bindPopup
 });
 
-const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit/rlc_corredorseco/wms", {
+// ✅ Capa WMS corregida
+const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/wms", {
   layers: 'corredor_seco_fao',
   format: 'image/png',
   transparent: true,
