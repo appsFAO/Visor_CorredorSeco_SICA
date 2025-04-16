@@ -1,12 +1,10 @@
-/* ===========================
-   🌐 BASE GENERAL
-=========================== */
+/* ========== 🌍 BASE GENERAL ========== */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', sans-serif;
-  background: #f8f9fa;
+  background: #f4f6f9;
 }
 
 #map {
@@ -18,9 +16,7 @@ html, body {
   z-index: 0;
 }
 
-/* ===========================
-   🧭 HEADER (NAVBAR)
-=========================== */
+/* ========== 🧭 NAVBAR ========== */
 header.navbar {
   position: fixed;
   top: 0;
@@ -29,29 +25,31 @@ header.navbar {
   height: 70px;
   background: #2c3e50;
   color: white;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 15px;
-  z-index: 1000;
+  padding: 0 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 .titulo-contenedor {
-  flex: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .titulo-contenedor h1 {
   margin: 0;
   font-size: 22px;
   font-weight: 700;
-  color: #ffffff;
   text-align: center;
-  letter-spacing: 0.5px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -60,8 +58,7 @@ header.navbar {
 .banderas {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-left: auto;
+  gap: 8px;
 }
 
 .banderas button {
@@ -72,42 +69,37 @@ header.navbar {
 }
 
 .banderas img {
-  width: 30px;
-  height: 22px;
-  object-fit: cover;
+  width: 28px;
+  height: 20px;
   border-radius: 4px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
-/* ===========================
-   ☰ BOTÓN DE PANEL
-=========================== */
+/* ========== ☰ BOTÓN PANEL ========== */
 #menu-btn {
   position: fixed;
-  bottom: 200px;
+  bottom: 120px;
   left: 10px;
   background: #3498db;
   color: white;
   border: none;
   padding: 8px 12px;
-  font-size: 18px;
-  border-radius: 8px;
+  font-size: 16px;
+  border-radius: 6px;
   cursor: pointer;
   z-index: 1100;
-  box-shadow: 1px 1px 6px rgba(0,0,0,0.25);
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.25);
 }
 
-/* ===========================
-   🗂️ PANEL DE CAPAS
-=========================== */
+/* ========== 📂 PANEL DE CAPAS ========== */
 #panel {
   position: fixed;
   bottom: 10px;
   left: 10px;
   background: white;
+  padding: 16px;
   border-radius: 10px;
-  padding: 16px 18px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   z-index: 1001;
   width: 260px;
   font-size: 14px;
@@ -130,43 +122,36 @@ header.navbar {
 
 #panel ul {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 #panel li {
   margin-bottom: 8px;
   display: flex;
   align-items: center;
+  gap: 6px;
 }
 
-#panel input[type="checkbox"] {
-  margin-right: 6px;
-}
-
-/* ===========================
-   🖍️ LEYENDA DINÁMICA
-=========================== */
+/* ========== 🖍️ LEYENDA DINÁMICA ========== */
 #leyenda-dinamica {
   position: fixed;
   bottom: 10px;
   right: 10px;
   background: white;
-  border-radius: 10px;
   padding: 14px 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
   z-index: 1001;
   font-size: 14px;
   max-width: 260px;
 }
 
 #leyenda-dinamica h3 {
-  margin: 0 0 12px 0;
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .leyenda-item {
@@ -184,9 +169,7 @@ header.navbar {
   display: inline-block;
 }
 
-/* ===========================
-   🌍 FOOTER
-=========================== */
+/* ========== 📍 FOOTER ========== */
 footer {
   position: fixed;
   bottom: 0;
@@ -195,28 +178,23 @@ footer {
   background: #2c3e50;
   color: white;
   font-size: 12px;
-  padding: 8px 12px;
   text-align: center;
+  padding: 8px;
   z-index: 999;
 }
 
-/* ===========================
-   🌐 IDIOMA SWITCH
-=========================== */
+/* ========== 🌐 SWITCH IDIOMA ========== */
 #lang-switch {
-  margin-left: 10px;
-  padding: 4px 10px;
   background-color: #e67e22;
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 12px;
+  border-radius: 6px;
+  padding: 6px 10px;
   cursor: pointer;
+  font-size: 12px;
 }
 
-/* ===========================
-   📱 RESPONSIVE
-=========================== */
+/* ========== 📱 RESPONSIVE ========== */
 @media (max-width: 768px) {
   header.navbar {
     flex-direction: column;
@@ -225,28 +203,26 @@ footer {
   }
 
   .banderas {
-    margin-top: 8px;
+    margin-top: 6px;
     justify-content: center;
   }
 
-  #panel,
-  #leyenda-dinamica {
+  #panel, #leyenda-dinamica {
     width: 90%;
+    left: 5%;
     right: 5%;
-    left: auto;
     font-size: 13px;
   }
 
   #menu-btn {
-    bottom: 220px;
-    left: 10px;
-  }
-
-  #map {
-    top: 110px;
+    bottom: 100px;
   }
 
   footer {
-    font-size: 10px;
+    font-size: 11px;
+  }
+
+  .titulo-contenedor h1 {
+    font-size: 18px;
   }
 }
