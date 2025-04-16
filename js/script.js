@@ -71,7 +71,7 @@ function actualizarLeyenda() {
   }
 
   if (map.hasLayer(csMunis)) {
-    leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#e74c3c"></span>Municipios CS</li>`;
+    leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#c215c2"></span>Municipios CS</li>`;
   }
 
   if (map.hasLayer(corredorSecoFAO)) {
