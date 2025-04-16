@@ -25,12 +25,12 @@ header.navbar {
   height: 70px;
   background: #2c3e50;
   color: white;
-  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
 }
 
 .titulo-contenedor {
@@ -40,17 +40,12 @@ header.navbar {
 
 .titulo-contenedor h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: white;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 }
 
-/* 🌐 BANDERAS */
 .banderas {
   position: absolute;
   right: 20px;
@@ -62,13 +57,8 @@ header.navbar {
 .banderas button {
   background: none;
   border: none;
-  cursor: pointer;
   padding: 0;
-  transition: transform 0.2s;
-}
-
-.banderas button:hover {
-  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .banderas img {
@@ -76,7 +66,6 @@ header.navbar {
   height: 20px;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.25);
-  display: block;
 }
 
 /* 🖍️ LEYENDA DINÁMICA */
@@ -84,19 +73,20 @@ header.navbar {
   position: fixed;
   bottom: 10px;
   right: 10px;
-  background: #ffffff;
+  background: #fff;
   padding: 14px 16px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  z-index: 1001;
   font-size: 14px;
   max-width: 260px;
+  z-index: 1001;
 }
 
 #leyenda-dinamica h3 {
   margin: 0 0 12px 0;
   font-size: 15px;
   font-weight: bold;
+  text-align: left;
 }
 
 .leyenda-item {
@@ -114,13 +104,13 @@ header.navbar {
   display: inline-block;
 }
 
-/* 🧱 BASEMAP SELECTOR (Leaflet Control) */
+/* 📚 CONTROL DE CAPAS */
 .leaflet-control-layers {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   font-size: 13px;
-  padding: 8px;
+  padding: 6px 10px;
 }
 
 .leaflet-control-layers label {
@@ -153,12 +143,11 @@ footer {
   padding: 6px 12px;
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  transition: background 0.2s;
 }
 
 #lang-switch:hover {
   background-color: #cf711a;
-  transform: scale(1.05);
 }
 
 /* 📱 RESPONSIVE */
@@ -173,7 +162,6 @@ footer {
     position: static;
     margin-top: 10px;
     justify-content: center;
-    flex-wrap: wrap;
   }
 
   #leyenda-dinamica {
