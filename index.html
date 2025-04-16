@@ -17,38 +17,42 @@
 </head>
 <body>
 
-  <header class="navbar">
+  <!-- 🧭 Navbar -->
+  <header class="navbar" role="banner">
     <div class="titulo-contenedor">
       <h1 id="main-title">🌱 Visor Corredor Seco y Zonas Áridas</h1>
     </div>
     <nav class="banderas" aria-label="Navegación por país">
-      <button onclick="centrarEnPais('costarica')" title="Costa Rica">
-        <img src="img/bandera_costarica.png" alt="Costa Rica" />
+      <button onclick="centrarEnPais('costarica')" title="Costa Rica" aria-label="Costa Rica">
+        <img src="img/bandera_costarica.png" alt="Bandera de Costa Rica" />
       </button>
-      <button onclick="centrarEnPais('panama')" title="Panamá">
-        <img src="img/bandera_panama.png" alt="Panamá" />
+      <button onclick="centrarEnPais('panama')" title="Panamá" aria-label="Panamá">
+        <img src="img/bandera_panama.png" alt="Bandera de Panamá" />
       </button>
-      <button onclick="centrarEnPais('honduras')" title="Honduras">
-        <img src="img/bandera_honduras.png" alt="Honduras" />
+      <button onclick="centrarEnPais('honduras')" title="Honduras" aria-label="Honduras">
+        <img src="img/bandera_honduras.png" alt="Bandera de Honduras" />
       </button>
-      <button onclick="centrarEnPais('guatemala')" title="Guatemala">
-        <img src="img/bandera_guatemala.png" alt="Guatemala" />
+      <button onclick="centrarEnPais('guatemala')" title="Guatemala" aria-label="Guatemala">
+        <img src="img/bandera_guatemala.png" alt="Bandera de Guatemala" />
       </button>
-      <button onclick="centrarEnPais('elsalvador')" title="El Salvador">
-        <img src="img/bandera_elsalvador.png" alt="El Salvador" />
+      <button onclick="centrarEnPais('elsalvador')" title="El Salvador" aria-label="El Salvador">
+        <img src="img/bandera_elsalvador.png" alt="Bandera de El Salvador" />
       </button>
-      <button onclick="vistaGeneral()" title="Vista general del mapa">🌍</button>
-      <button id="lang-switch">English</button>
+      <button onclick="vistaGeneral()" title="Vista general del mapa" aria-label="Vista general">🌍</button>
+      <button id="lang-switch" title="Cambiar idioma" aria-label="Cambiar idioma">English</button>
     </nav>
   </header>
 
-  <div id="map" role="region" aria-label="Mapa interactivo"></div>
+  <!-- 🗺️ Mapa principal -->
+  <main id="map" role="region" aria-label="Mapa interactivo"></main>
 
-  <section id="leyenda-dinamica" aria-label="Simbología">
+  <!-- 🖍️ Leyenda dinámica -->
+  <section id="leyenda-dinamica" aria-label="Simbología del mapa">
     <h3>Simbología</h3>
     <ul id="leyenda-list"></ul>
   </section>
 
+  <!-- 📍 Footer -->
   <footer>
     <span>&copy; 2025 Proyecto Flagship de Restauración | Creado por: Grettel Vargas</span>
   </footer>
