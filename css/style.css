@@ -50,6 +50,7 @@ header.navbar {
   gap: 10px;
 }
 
+/* 🌐 BOTONES DE PAÍSES */
 .banderas {
   position: absolute;
   right: 20px;
@@ -72,9 +73,9 @@ header.navbar {
   box-shadow: 0 1px 3px rgba(0,0,0,0.25);
 }
 
-/* 🧭 LEAFLET CAPAS FUSIONADAS */
+/* 🧱 CAPAS Y MAPAS BASE */
 .leaflet-top.leaflet-right {
-  top: 70px !important; /* debajo del zoom */
+  margin-top: 80px;
 }
 
 .leaflet-control-layers {
@@ -84,7 +85,7 @@ header.navbar {
   font-size: 14px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.2);
   line-height: 1.4;
-  min-width: 180px;
+  min-width: 200px;
 }
 
 .leaflet-control-layers label {
