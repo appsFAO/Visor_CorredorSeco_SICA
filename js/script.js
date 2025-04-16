@@ -1,28 +1,45 @@
-// 🌍 Inicializar el mapa base
-const map = L.map('map').setView([13.5, -85], 6);
+// Inicializar el mapa base
+const map = L.map('map', {
+  center: [13.5, -85],
+  zoom: 6
+});
 
-// 🛰️ Fondo satelital
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-  attribution: '&copy; Esri, Maxar, Earthstar Geographics'
-}).addTo(map);
+// Mapas base
+const baseMaps = {
+  "Esri Satelital": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: '&copy; Esri, Maxar, Earthstar Geographics'
+  }),
+  "OpenStreetMap": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }),
+  "Toner": L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+    attribution: '&copy; Stamen Design, OpenStreetMap contributors'
+  }),
+  "Terreno": L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg', {
+    attribution: '&copy; Stamen Design, OpenStreetMap contributors'
+  })
+};
 
-// 🔍 Geocoder
+// Agregar mapa base predeterminado
+baseMaps["Esri Satelital"].addTo(map);
+
+// Geocoder
 L.Control.geocoder({
   defaultMarkGeocode: true,
   placeholder: 'Buscar lugar...'
 }).addTo(map);
 
-// 🔁 Función para popups genéricos
+// Función para popups
 function popupGenerico(feature, layer) {
-  const props = feature.properties;
+  let props = feature.properties;
   let contenido = '';
-  for (const key in props) {
+  for (let key in props) {
     contenido += `<strong>${key}:</strong> ${props[key]}<br>`;
   }
   layer.bindPopup(contenido);
 }
 
-// 📁 Capas GeoJSON
+// Capas temáticas
 const centroamerica = L.geoJSON(null, {
   style: { color: '#0033cc', weight: 2, fillOpacity: 0.1 },
   onEachFeature: popupGenerico
@@ -44,7 +61,6 @@ const csMunis = L.geoJSON(null, {
   onEachFeature: popupGenerico
 });
 
-// 🛰️ Capa WMS
 const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit/rlc_corredorseco/wms", {
   layers: 'corredor_seco_fao',
   format: 'image/png',
@@ -53,71 +69,59 @@ const corredorSecoFAO = L.tileLayer.wms("https://data.apps.fao.org/map/gsrv/edit
   attribution: '© FAO GeoNetwork'
 });
 
-// 📥 Cargar datos GeoJSON
-fetch('datos/centroamerica.geojson')
-  .then(res => res.json())
-  .then(data => centroamerica.addData(data));
+// Cargar datos GeoJSON
+fetch('datos/centroamerica.geojson').then(res => res.json()).then(data => centroamerica.addData(data));
+fetch('datos/paises_piloto.geojson').then(res => res.json()).then(data => paisesPiloto.addData(data));
+fetch('datos/cs_munis.geojson').then(res => res.json()).then(data => csMunis.addData(data));
 
-fetch('datos/paises_piloto.geojson')
-  .then(res => res.json())
-  .then(data => paisesPiloto.addData(data));
-
-fetch('datos/cs_munis.geojson')
-  .then(res => res.json())
-  .then(data => csMunis.addData(data));
-
-// 📌 Añadir capas por defecto
+// Agregar capas al mapa
 centroamerica.addTo(map);
 paisesPiloto.addTo(map);
 csMunis.addTo(map);
 corredorSecoFAO.addTo(map);
 
-// 🎯 Leyenda dinámica
-const leyenda = document.getElementById('leyenda-list');
+// Control de mapas base y capas
+L.control.layers(baseMaps, {
+  "Centroamérica": centroamerica,
+  "Países Piloto": paisesPiloto,
+  "Municipios CS": csMunis,
+  "Corredor Seco FAO (WMS)": corredorSecoFAO
+}, {
+  position: 'topright'
+}).addTo(map);
 
+// Leyenda dinámica
+const leyenda = document.getElementById('leyenda-list');
 function actualizarLeyenda() {
   leyenda.innerHTML = '';
-
-  if (map.hasLayer(centroamerica)) {
-    leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#0033cc"></span>Centroamérica</li>`;
-  }
-
-  if (map.hasLayer(paisesPiloto)) {
-    leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#ffa500"></span>Países Piloto</li>`;
-  }
-
-  if (map.hasLayer(csMunis)) {
-    leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#c215c2"></span>Municipios CS</li>`;
-  }
-
+  if (map.hasLayer(centroamerica)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#0033cc"></span>Centroamérica</li>`;
+  if (map.hasLayer(paisesPiloto)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#ffa500"></span>Países Piloto</li>`;
+  if (map.hasLayer(csMunis)) leyenda.innerHTML += `<li class="leyenda-item"><span class="leyenda-color" style="background:#c215c2"></span>Municipios CS</li>`;
   if (map.hasLayer(corredorSecoFAO)) {
     leyenda.innerHTML += `
       <li class="leyenda-item" style="margin-top: 10px; font-weight: bold;">Corredor Seco FAO (WMS)</li>
-      <li class="leyenda-item"><span class="leyenda-color" style="background:#d73027"></span>Severa, Z=0</li>
-      <li class="leyenda-item"><span class="leyenda-color" style="background:#fc8d59"></span>Alta, Z=0</li>
-      <li class="leyenda-item"><span class="leyenda-color" style="background:#fee08b"></span>Baja, Z=0</li>
-      <li class="leyenda-item"><span class="leyenda-color" style="background:#91bfdb"></span>Z=0</li>
-    `;
+      <ul style="margin-top: 5px; padding-left: 10px;">
+        <li class="leyenda-item"><span class="leyenda-color" style="background:#d73027"></span> Severa, Z=0</li>
+        <li class="leyenda-item"><span class="leyenda-color" style="background:#fc8d59"></span> Alta, Z=0</li>
+        <li class="leyenda-item"><span class="leyenda-color" style="background:#fee08b"></span> Baja, Z=0</li>
+        <li class="leyenda-item"><span class="leyenda-color" style="background:#91bfdb"></span> Z=0</li>
+      </ul>`;
   }
 }
 
-// ✅ Checkbox control de capas
+// Checkboxes del panel lateral
 const layersCheckboxes = {
-  centroamerica,
+  centroamerica: centroamerica,
   paises_piloto: paisesPiloto,
   cs_munis: csMunis,
   corredor_seco_fao: corredorSecoFAO
 };
 
 Object.keys(layersCheckboxes).forEach(id => {
-  const checkbox = document.getElementById(id);
-  if (checkbox) {
-    checkbox.addEventListener('change', function () {
-      if (this.checked) {
-        layersCheckboxes[id].addTo(map);
-      } else {
-        map.removeLayer(layersCheckboxes[id]);
-      }
+  const input = document.getElementById(id);
+  if (input) {
+    input.addEventListener('change', function () {
+      this.checked ? layersCheckboxes[id].addTo(map) : map.removeLayer(layersCheckboxes[id]);
       actualizarLeyenda();
     });
   }
@@ -125,26 +129,21 @@ Object.keys(layersCheckboxes).forEach(id => {
 
 actualizarLeyenda();
 
-// 📌 Centrar en países
+// Centrado por país
 function centrarEnPais(pais) {
   const coords = {
     honduras: [15.2, -86.4],
     guatemala: [15.5, -90.3],
     elsalvador: [13.8, -88.9]
   };
-
   const nombres = {
     honduras: "Honduras 🇭🇳",
     guatemala: "Guatemala 🇬🇹",
     elsalvador: "El Salvador 🇸🇻"
   };
-
   if (coords[pais]) {
     map.setView(coords[pais], 8);
-    const popup = L.popup()
-      .setLatLng(coords[pais])
-      .setContent(`<b>${nombres[pais]}</b>`)
-      .openOn(map);
+    const popup = L.popup().setLatLng(coords[pais]).setContent(`<b>${nombres[pais]}</b>`).openOn(map);
     setTimeout(() => map.closePopup(popup), 3000);
   }
 }
@@ -153,28 +152,26 @@ function vistaGeneral() {
   map.setView([13.5, -85], 6);
 }
 
-// ☰ Mostrar/Ocultar panel
 function togglePanel() {
   document.getElementById('panel').classList.toggle('hidden');
 }
 
-// 🌐 Cambio de idioma (ES/EN)
-document.getElementById('lang-switch').addEventListener('click', () => {
+// Idioma
+const langSwitch = document.getElementById('lang-switch');
+langSwitch.addEventListener('click', function () {
   const lang = document.documentElement.lang === 'es' ? 'en' : 'es';
   document.documentElement.lang = lang;
-  document.getElementById('lang-switch').textContent = lang === 'es' ? 'English' : 'Español';
-
-  document.getElementById('main-title').textContent =
-    lang === 'es' ? '🌱 Visor Corredor Seco y Zonas Áridas' : '🌱 Dry Corridor and Arid Zones Viewer';
-
+  this.textContent = lang === 'es' ? 'English' : 'Español';
+  document.getElementById('main-title').textContent = lang === 'es'
+    ? '🌱 Visor Corredor Seco y Zonas Áridas'
+    : '🌱 Dry Corridor and Arid Zones Viewer';
   document.getElementById('panel-title').textContent = lang === 'es' ? 'Capas' : 'Layers';
 
   const labels = document.querySelectorAll('.cap-layer');
-  const textos = lang === 'es'
-    ? ['Centroamérica', 'Corredor Seco FAO (WMS)', 'Municipios CS', 'Países Piloto']
-    : ['Central America', 'FAO Dry Corridor (WMS)', 'CS Municipalities', 'Pilot Countries'];
-
-  labels.forEach((label, i) => {
-    if (textos[i]) label.textContent = textos[i];
-  });
+  if (labels.length >= 4) {
+    labels[0].textContent = lang === 'es' ? 'Corredor Seco FAO (WMS)' : 'FAO Dry Corridor (WMS)';
+    labels[1].textContent = lang === 'es' ? 'Países Piloto' : 'Pilot Countries';
+    labels[2].textContent = lang === 'es' ? 'Centroamérica' : 'Central America';
+    labels[3].textContent = lang === 'es' ? 'Municipios CS' : 'CS Municipalities';
+  }
 });
